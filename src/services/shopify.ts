@@ -2,15 +2,17 @@ import axios from 'axios'
 import { Product } from '@/types/product'
 import { RELATED_PRODUCT_STRATEGY, RELATED_LIMIT } from '@/config/settings'
 
+
 const fallbackImage = '/fallback.jpg'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 const shopifyUrl = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
+
 
 /**
  * getProductByHandle
  * ---------------------------------------------------
  * Fetches a full product by its handle from the internal API.
- * Includes title, description, tags, category, variants.
+ * Includes title, description, tags, category, variants, and metafields.
  */
 export async function getProductByHandle(handle: string): Promise<Product> {
   const res = await fetch(`${siteUrl}/api/products?handle=${handle}`)
@@ -22,6 +24,19 @@ export async function getProductByHandle(handle: string): Promise<Product> {
   const data = await res.json()
   const node = data.product
 
+  if (!node) {
+    throw new Error(`Product not found: ${handle}`)
+  }
+
+  // ✅ Extract metafields directly (no edges)
+  const metafieldsRaw = node.metafields || []
+  const specs: Record<string, string> = {}
+
+  metafieldsRaw.forEach((field: any) => {
+    specs[field.key] = field.value
+  })
+
+  // ✅ Extract variant data
   const variants = node.variants?.edges.map((edge: any) => {
     const variantNode = edge.node
     const selectedColor = variantNode.selectedOptions?.find(
@@ -36,7 +51,7 @@ export async function getProductByHandle(handle: string): Promise<Product> {
     }
   }) || []
 
-  return {
+  const product: Product = {
     id: node.id,
     title: node.title,
     description: node.description,
@@ -49,7 +64,19 @@ export async function getProductByHandle(handle: string): Promise<Product> {
     category: node.productType || '',
     variantId: variants[0]?.id || '',
     variants,
+
+    // ✅ Add extracted metafields
+    size: specs.size || '',
+    medium: specs.medium || '',
+    availability: specs.availability || '',
+    signedBy: specs.signed_by || '',
+    yearCreated: specs.year_created || ''
   }
+
+  // ✅ Debug log for visual inspection
+  console.log('[DEBUG] Final product with specs:', product)
+
+  return product
 }
 
 /**
@@ -182,4 +209,26 @@ export async function getRelatedProductsByTag(tag: string, excludeHandle: string
       variantId: node.variants?.edges?.[0]?.node?.id || '',
       variants: [],
     }))
+}
+export async function getAllProductsPaginated(page: number = 1): Promise<Product[]> {
+  const PAGE_SIZE = 12
+  const res = await axios.get(`/api/products?count=${PAGE_SIZE}`)
+  const nodes = res.data.products?.edges || []
+
+  return nodes.map((edge: any) => {
+    const node = edge.node
+
+    return {
+      id: node.id,
+      title: node.title,
+      description: node.description,
+      imageSrc: node.featuredImage?.url || '/fallback.jpg',
+      price: node.priceRange?.minVariantPrice?.amount || '0.00',
+      currency: node.priceRange?.minVariantPrice?.currencyCode || 'CAD',
+      handle: node.handle,
+      category: node.productType || '',
+      tags: node.tags || [],
+      variantId: node.variants?.edges?.[0]?.node?.id || '',
+    }
+  })
 }

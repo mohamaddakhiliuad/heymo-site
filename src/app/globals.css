@@ -56,3 +56,27 @@ body {
 .animate-leave {
   animation: leave 0.2s ease-in forwards;
 }
+/* Gallery masonry grid */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -24px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 24px; /* gutter size */
+  background-clip: padding-box;
+}
+.my-masonry-grid_column > div {
+  margin-bottom: 28px;
+}
+
+/* Optional glow or soft border effect around image cards */
+.my-masonry-grid_column > div > a {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+.my-masonry-grid_column > div > a:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}

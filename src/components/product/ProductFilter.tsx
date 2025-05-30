@@ -1,80 +1,78 @@
 'use client'
 
 import { ChangeEvent } from 'react'
-import {
-  filterButton,
-  filterButtonActive,
-  filterGroup,
-  filterDropdown,
-} from '@/styles/formStyles'
 
 interface ProductFilterProps {
-  tags: string[]
   categories: string[]
-  selectedTag: string | null
+  tags: string[]
   selectedCategory: string | null
-  onTagChange: (tag: string | null) => void
+  selectedTag: string | null
   onCategoryChange: (category: string | null) => void
+  onTagChange: (tag: string | null) => void
 }
 
 /**
- * ProductFilter
- * --------------------------------------------
- * Tag and category filter UI for product grids
- * - Tag filters rendered as buttons
- * - Category filter rendered as <select> dropdown
- * - Controlled through external handlers
+ * ProductFilter – Category as soft buttons + Tag dropdown styled cleanly
  */
 export default function ProductFilter({
-  tags,
   categories,
-  selectedTag,
+  tags,
   selectedCategory,
-  onTagChange,
+  selectedTag,
   onCategoryChange,
+  onTagChange,
 }: ProductFilterProps) {
-  // Handle dropdown change event
-  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleTagChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
-    onCategoryChange(value === '' ? null : value)
+    onTagChange(value === '' ? null : value)
   }
 
   return (
-    <div className={filterGroup}>
-
-      {/* Tag Filters */}
-      {tags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => onTagChange(null)}
-            className={selectedTag === null ? filterButtonActive : filterButton}
-          >
-            All
-          </button>
-          {tags.map(tag => (
-            <button
-              key={tag}
-              onClick={() => onTagChange(tag)}
-              className={selectedTag === tag ? filterButtonActive : filterButton}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Category Dropdown */}
-      {categories.length > 0 && (
-        <select
-          value={selectedCategory || ''}
-          onChange={handleCategoryChange}
-          className={filterDropdown}
+    <div className="mb-10">
+      {/* Category Buttons */}
+      <div className="flex flex-wrap justify-center gap-3 mb-6">
+        <button
+          onClick={() => onCategoryChange(null)}
+          className={`px-4 py-1 rounded-full border transition ${
+            selectedCategory === null
+              ? 'bg-[#5e4033] text-white'
+              : 'border-[#d9cfc3] text-[#5e4033] hover:bg-[#f7f3ee]'
+          }`}
         >
-          <option value="">All Categories</option>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+          All
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => onCategoryChange(cat)}
+            className={`px-4 py-1 rounded-full border transition ${
+              selectedCategory === cat
+                ? 'bg-[#5e4033] text-white'
+                : 'border-[#d9cfc3] text-[#5e4033] hover:bg-[#f7f3ee]'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Tag Dropdown */}
+      {tags.length > 0 && (
+        <div className="flex justify-center items-center gap-2">
+          <label className="text-sm font-serif text-[#5e4033]">Filter by Tag:</label>
+          <select
+            value={selectedTag || ''}
+            onChange={handleTagChange}
+            className="border border-[#d9cfc3] rounded-full px-4 py-2 text-sm bg-white text-[#4e3a2f] shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+          >
+            <option value="">All Tags</option>
+            {tags.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
     </div>
   )

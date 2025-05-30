@@ -1,19 +1,6 @@
-export const runtime = 'edge' // Use Vercel Edge Functions for faster global performance
-
-/**
- * Shopify Product API Proxy
- * ------------------------------------------------
- * Handles:
- * - GET /api/shopify/products             → fetch multiple products
- * - GET /api/shopify/products?handle=xyz → fetch a single product
- *
- * Optional query params:
- * - handle: string → fetch a product by handle
- * - count: number  → number of products to fetch (default: 3)
- */
+export const runtime = 'edge'
 
 export async function GET(request: Request) {
-  // Env variables (ensure these are set in your environment)
   const SHOPIFY_DOMAIN = process.env.SHOPIFY_DOMAIN!
   const STOREFRONT_TOKEN = process.env.SHOPIFY_TOKEN!
 
@@ -21,14 +8,11 @@ export async function GET(request: Request) {
   const handle = searchParams.get('handle')
   const count = searchParams.get('count') || '3'
 
+  console.log('[INFO] Request params:', { handle, count })
+
   let query = ''
 
-  // --------------------------------------------
-  // Build GraphQL query based on mode
-  // --------------------------------------------
-
   if (handle) {
-    // Fetch a specific product by handle
     query = `
       {
         productByHandle(handle: "${handle}") {
@@ -36,8 +20,8 @@ export async function GET(request: Request) {
           title
           description
           handle
-          productType          # <-- category
-          tags                 # <-- filter tags
+          productType
+          tags
           featuredImage {
             url
             altText
@@ -64,11 +48,21 @@ export async function GET(request: Request) {
               }
             }
           }
+          metafields(identifiers: [
+            { namespace: "custom", key: "size" },
+            { namespace: "custom", key: "medium" },
+            { namespace: "custom", key: "signed_by" },
+            { namespace: "custom", key: "availability" },
+            { namespace: "custom", key: "year_created" }
+          ]) {
+            namespace
+            key
+            value
+          }
         }
       }
     `
   } else {
-    // Fetch a list of products
     query = `
       {
         products(first: ${count}) {
@@ -78,8 +72,8 @@ export async function GET(request: Request) {
               title
               description
               handle
-              productType        # <-- category
-              tags               # <-- filter tags
+              productType
+              tags
               featuredImage {
                 url
                 altText
@@ -113,10 +107,6 @@ export async function GET(request: Request) {
     `
   }
 
-  // --------------------------------------------
-  // Call Shopify Storefront GraphQL API
-  // --------------------------------------------
-
   try {
     const response = await fetch(`${SHOPIFY_DOMAIN}/api/2023-07/graphql.json`, {
       method: 'POST',
@@ -128,26 +118,33 @@ export async function GET(request: Request) {
     })
 
     const json = await response.json()
+    //
+    // console.log('[DEBUG] Shopify GraphQL response:', JSON.stringify(json, null, 2))
 
-    // Return single product
     if (handle) {
-      return new Response(
-        JSON.stringify({ product: json.data.productByHandle }),
-        {
+      const product = json?.data?.productByHandle
+
+      if (!product) {
+        console.warn('[WARN] Product not found for handle:', handle)
+        return new Response(JSON.stringify({ error: 'Product not found' }), {
           headers: { 'Content-Type': 'application/json' },
-          status: 200,
-        }
-      )
+          status: 404,
+        })
+      }
+
+      return new Response(JSON.stringify({ product }), {
+        headers: { 'Content-Type': 'application/json' },
+        status: 200,
+      })
     }
 
-    // Return multiple products
     return new Response(JSON.stringify(json.data), {
       headers: { 'Content-Type': 'application/json' },
       status: 200,
     })
 
   } catch (error) {
-    console.error('[Shopify API Error]', error)
+    console.error('[ERROR] Shopify API fetch failed:', error)
     return new Response(
       JSON.stringify({ error: 'Failed to fetch data from Shopify' }),
       {

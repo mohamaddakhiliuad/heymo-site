@@ -1,16 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Product } from '@/types/product'
-import clsx from 'clsx'
-
-import {
-  cardBase,
-  productImage,
-  productTitleInsidGrid,
-  productPrice,
-  cardButtonGroup,
-} from '@/styles/formStyles'
 
 interface ProductCardProps {
   product: Product
@@ -18,58 +10,50 @@ interface ProductCardProps {
 }
 
 /**
- * ProductCard
- * ---------------------------
- * Clean and structured card for displaying a product with image, title, price, and actions.
- * - Uses centralized styles from formStyles.ts for consistency and maintainability
- * - Structured for SEO with schema.org/Product
- * - Includes both internal and external links (e.g., to Shopify)
+ * ProductCard (Optimized with next/image)
+ * ----------------------------------------
+ * Features:
+ * - Fixed aspect ratio (3/4) with Image optimization
+ * - Title always visible under image
+ * - "View Details" button
+ * - Prevents image blurriness in grid
  */
-export default function ProductCard({ product, shopUrl }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   const productLink = `/products/${product.handle}`
   const imageSrc = product.imageSrc
 
   return (
-    <div className={cardBase} itemScope itemType="https://schema.org/Product">
-      
-      {/* Product image with link to internal detail page */}
-      <Link href={productLink}>
-        <img
+    <div
+      className="bg-white rounded-2xl overflow-hidden border border-[#ddd0c2] shadow-sm hover:shadow-md transition flex flex-col h-full"
+      itemScope
+      itemType="https://schema.org/Product"
+    >
+      {/* ✅ Image container with aspect ratio */}
+      <div className="relative aspect-[3/4] w-full">
+        <Image
           src={imageSrc}
           alt={product.title}
-          className={productImage}
-          itemProp="image"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover rounded-t-2xl"
+          priority
         />
-      </Link>
+      </div>
 
-      {/* Product title below the image */}
-      <h3 className={productTitleInsidGrid}>
-        <Link href={productLink} itemProp="name">
+      {/* ✅ Title + Button */}
+      <div className="flex flex-col justify-between p-4 flex-grow">
+        <h3
+          className="text-md font-serif text-[#5e4033] mb-4 line-clamp-2"
+          itemProp="name"
+        >
           {product.title}
-        </Link>
-      </h3>
-
-      {/* Product price in main color */}
-      <p className={productPrice}>
-        ${product.price} {product.currency}
-      </p>
-
-      {/* Button group: internal detail + external store link */}
-      <div className={cardButtonGroup}>
+        </h3>
         <Link
           href={productLink}
-          className="underline text-sm text-[#5e4033] hover:text-[#3e2e24]"
+          className="inline-block text-center bg-[#5e4033] text-white text-sm px-4 py-2 rounded-full hover:bg-[#3d2b23] transition"
         >
-          View Details
+          View Details →
         </Link>
-        <a
-          href={`${shopUrl}/products/${product.handle}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline text-sm text-[#5e4033] hover:text-[#3e2e24]"
-        >
-          View on Store →
-        </a>
       </div>
     </div>
   )

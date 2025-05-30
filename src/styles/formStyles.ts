@@ -5,17 +5,21 @@
 
 import { colors, borderRadius, shadow, spacing, typography } from './theme'
 
-/** ProductCard
+
+ /** ProductCard
  * ---------------------------
  * Base card layout for displaying a product.
+ * Fixed min-height for visual balance across grid.
  */
-export const cardBase = `bg-white ${borderRadius.base} ${shadow.base} ${spacing.cardPadding} flex flex-col justify-between`
+export const cardBase = 'bg-white rounded-xl shadow-md p-4 min-h-[460px] flex flex-col justify-between'
+
 
 /** ProductImage
  * ---------------------------
  * Responsive and uniform product image presentation.
+ * Updated to use object-contain to avoid image distortion.
  */
-export const productImage = `w-full aspect-[4/5] object-cover ${borderRadius.base} ${shadow.base} transition-transform duration-300 hover:scale-105`
+export const productImage = 'w-full h-[260px] object-contain bg-white p-4 rounded-xl shadow-md transition-transform duration-300 hover:scale-105'
 
 /** Product Title (Standalone or Grid)
  * --------------------------- */
@@ -164,3 +168,18 @@ export const toastBox = 'bg-[#fff8f2] border border-[#5e4033] shadow-lg rounded-
  * Link/button inside toast actions
  */
 export const toastLink = 'underline text-[#5e4033] hover:text-[#3e2e24] transition'
+/** Artwork Image */
+export const artworkImage =
+  'w-full h-[300px] object-contain rounded-md bg-[#f9f9f9] transition-transform duration-300 group-hover:scale-105'
+
+/** Artwork Video */
+export const artworkVideo = 'w-full h-[300px] object-contain rounded-md bg-black'
+
+/** Artwork Title */
+export const artworkTitle = 'text-lg font-serif text-[#5e4033]'
+
+/** Buy Button */
+export const artworkBuyButton = 'text-sm text-white bg-[#5e4033] px-4 py-2 rounded-full inline-block text-center hover:bg-[#3e2e24] transition'
+
+/** View Link */
+export const artworkViewLink = 'text-sm underline text-[#5e4033]'

@@ -17,3 +17,4 @@ export const LIGHTBOX_CONFIG = {
   vignetteEffect: true,
   theme: 'dark',
 }
+export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
