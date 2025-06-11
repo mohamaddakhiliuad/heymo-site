@@ -1,73 +1,61 @@
 'use client'
 
-import { useState } from 'react'
-import { FiShoppingCart } from 'react-icons/fi'
+import { useCart } from '@/context/CartContext'
 import { showAddToCartToast } from '@/utils/toastUtils'
-import clsx from 'clsx'
 
-import { buttonCartFull } from '@/styles/formStyles'
-
-interface AddToCartButtonProps {
+interface Props {
+  variantId: string // ممکنه global ID باشه
+  title: string
+  price: string
+  currency: string
   quantity: number
-  variantId: string
-  productTitle: string
-  productUrl: string
   color?: string
+  imageSrc?: string
+  productUrl?: string
 }
 
-/**
- * AddToCartButton
- * ----------------
- * Reusable call-to-action button to add an item to cart.
- * - Uses formStyles for consistent CTA styling
- * - Displays loading state while adding
- * - Triggers toast notification upon success
- */
 export default function AddToCartButton({
-  quantity,
   variantId,
-  productTitle,
-  productUrl,
+  title,
+  price,
+  currency,
+  quantity,
   color,
-}: AddToCartButtonProps) {
-  const [isAdding, setIsAdding] = useState(false)
+  imageSrc,
+  productUrl,
+}: Props) {
+  const { addItem } = useCart()
 
-  const handleAddToCart = async () => {
-    setIsAdding(true)
+  const handleClick = () => {
+    // ✅ Extract numeric ID for Shopify Checkout
+    const numericVariantId = variantId.split('/').pop() || variantId
 
-    try {
-      // Simulate API delay (can be replaced with real logic)
-      await new Promise((res) => setTimeout(res, 800))
+    // ✅ Add to cart
+    addItem({
+      variantId: numericVariantId,
+      title,
+      price,
+      currency,
+      quantity,
+      color,
+      imageSrc,
+      productUrl,
+    })
 
-      // Fire toast notification with product info
-      showAddToCartToast({
-        title: productTitle,
-        quantity,
-        color,
-        productUrl,
-      })
-    } catch (error) {
-      console.error('Error adding to cart:', error)
-    } finally {
-      setIsAdding(false)
-    }
+    // ✅ Show custom toast
+    showAddToCartToast({
+      title,
+      quantity,
+      color,
+    })
   }
 
   return (
     <button
-      onClick={handleAddToCart}
-      disabled={isAdding}
-      className={clsx(
-        buttonCartFull,
-        isAdding && 'opacity-50 cursor-not-allowed'
-      )}
+      onClick={handleClick}
+      className="bg-[#5e4033] text-white px-5 py-2 rounded-full text-sm hover:bg-[#4a322a] transition"
     >
-      {isAdding ? 'Adding...' : (
-        <>
-          <FiShoppingCart />
-          Add to Cart
-        </>
-      )}
+      Add to Cart
     </button>
   )
 }

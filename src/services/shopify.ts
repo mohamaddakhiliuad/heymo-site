@@ -2,17 +2,27 @@ import axios from 'axios'
 import { Product } from '@/types/product'
 import { RELATED_PRODUCT_STRATEGY, RELATED_LIMIT } from '@/config/settings'
 
-
 const fallbackImage = '/fallback.jpg'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 const shopifyUrl = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
-
 
 /**
  * getProductByHandle
  * ---------------------------------------------------
  * Fetches a full product by its handle from the internal API.
- * Includes title, description, tags, category, variants, and metafields.
+ * Custom logic:
+ * - Extracts metafields
+ * - Fetches all variants
+ * - Chooses "Original" variant price as product price if show_price is true
+ */
+/**
+ * getProductByHandle
+ * ---------------------------------------------------
+ * Fetches a full product by its handle from the internal API.
+ * Custom logic:
+ * - Extracts metafields
+ * - Fetches all variants
+ * - Chooses "Original" variant price as product price if show_price is true
  */
 export async function getProductByHandle(handle: string): Promise<Product> {
   const res = await fetch(`${siteUrl}/api/products?handle=${handle}`)
@@ -28,70 +38,67 @@ export async function getProductByHandle(handle: string): Promise<Product> {
     throw new Error(`Product not found: ${handle}`)
   }
 
-  // ✅ Extract metafields directly (no edges)
-  const metafieldsRaw = node.metafields || []
   const specs: Record<string, string> = {}
-
+  const metafieldsRaw = node.metafields || []
   metafieldsRaw.forEach((field: any) => {
     specs[field.key] = field.value
   })
 
-  // ✅ Extract variant data
-  const variants = node.variants?.edges.map((edge: any) => {
-    const variantNode = edge.node
-    const selectedColor = variantNode.selectedOptions?.find(
-      (opt: any) => opt.name === 'Color'
-    )?.value
+  const rawVariants = node.variants || []
+
+  const variants = rawVariants.map((variant: any) => {
+    const selectedColor = variant.color || variant.title
 
     return {
-      id: variantNode.id,
-      title: variantNode.title,
-      color: selectedColor || variantNode.title,
-      image: variantNode.image?.url || node.featuredImage?.url || fallbackImage,
+      id: variant.id,
+      title: variant.title,
+      color: selectedColor,
+      image: node.imageSrc || fallbackImage, // ✅ استفاده از تصویر محصول اصلی
+      price: variant.price || '0.00',
+      currency: variant.currency || 'CAD',
+      show_price: variant.show_price,
+      description: variant.description,
     }
-  }) || []
+  })
+
+  const fallbackPrice = variants[0]?.price || node.price || '0.00'
+  const fallbackCurrency = variants[0]?.currency || node.currency || 'CAD'
 
   const product: Product = {
     id: node.id,
     title: node.title,
     description: node.description,
-    imageSrc: node.featuredImage?.url || fallbackImage,
-    price: node.priceRange?.minVariantPrice?.amount || '0.00',
-    currency: node.priceRange?.minVariantPrice?.currencyCode || 'USD',
+    imageSrc: node.imageSrc || fallbackImage,
+    price: fallbackPrice,
+    currency: fallbackCurrency,
     handle: node.handle,
-    url: shopifyUrl,
+    url: node.url,
     tags: node.tags || [],
-    category: node.productType || '',
+    category: node.category || '',
     variantId: variants[0]?.id || '',
     variants,
-
-    // ✅ Add extracted metafields
-    size: specs.size || '',
-    medium: specs.medium || '',
-    availability: specs.availability || '',
-    signedBy: specs.signed_by || '',
-    yearCreated: specs.year_created || ''
+    size: node.size || '',
+    medium: node.medium || '',
+    availability: node.availability || '',
+    signedBy: node.signedBy || '',
+    yearCreated: node.yearCreated || '',
+    show_price: node.show_price,
+    has_print: node.has_print,
+    has_nft: node.has_nft,
   }
 
-  // ✅ Debug log for visual inspection
   console.log('[DEBUG] Final product with specs:', product)
-
   return product
 }
 
-/**
- * getProducts
- * ---------------------------------------------------
- * Fetches a basic list of products from internal API.
- * Use for homepage, collections, or related suggestions.
- */
+
+
 export async function getProducts(count: number = 3): Promise<Product[]> {
   const res = await axios.get(`/api/products?count=${count}`)
   const nodes = res.data.products?.edges || []
 
   return nodes.map((edge: any) => {
     const node = edge.node
-
     return {
       id: node.id,
       title: node.title,
@@ -109,18 +116,12 @@ export async function getProducts(count: number = 3): Promise<Product[]> {
   })
 }
 
-/**
- * getProductsByTag
- * ---------------------------------------------------
- * Fetches products that match a specific tag (for related suggestions).
- */
 export async function getProductsByTag(tag: string): Promise<Product[]> {
   const res = await axios.get(`/api/products?tag=${tag}`)
   const nodes = res.data.products?.edges || []
 
   return nodes.map((edge: any) => {
     const node = edge.node
-
     return {
       id: node.id,
       title: node.title,
@@ -138,12 +139,6 @@ export async function getProductsByTag(tag: string): Promise<Product[]> {
   })
 }
 
-/**
- * getRelatedProductsByCategory
- * ---------------------------------------------------
- * Fetches products by shared category (productType),
- * excluding the current product by handle.
- */
 export async function getRelatedProductsByCategory(category: string, excludeHandle: string, limit = 4): Promise<Product[]> {
   const res = await axios.get(`/api/products?category=${category}`)
   const nodes = res.data.products?.edges || []
@@ -167,6 +162,7 @@ export async function getRelatedProductsByCategory(category: string, excludeHand
       variants: [],
     }))
 }
+
 export async function getRelatedProductsDynamic(product: Product): Promise<Product[]> {
   const exclude = product.handle
 
@@ -178,15 +174,9 @@ export async function getRelatedProductsDynamic(product: Product): Promise<Produ
     return getRelatedProductsByCategory(product.category, exclude, RELATED_LIMIT)
   }
 
-  // fallback: latest products
   return getProducts(RELATED_LIMIT)
 }
 
-/**
- * getRelatedProductsByTag
- * ---------------------------------------------------
- * Fetches products with a matching tag (excluding current product).
- */
 export async function getRelatedProductsByTag(tag: string, excludeHandle: string, limit = 4): Promise<Product[]> {
   const res = await axios.get(`/api/products?tag=${tag}`)
   const nodes = res.data.products?.edges || []
@@ -210,6 +200,7 @@ export async function getRelatedProductsByTag(tag: string, excludeHandle: string
       variants: [],
     }))
 }
+
 export async function getAllProductsPaginated(page: number = 1): Promise<Product[]> {
   const PAGE_SIZE = 12
   const res = await axios.get(`/api/products?count=${PAGE_SIZE}`)
@@ -217,7 +208,6 @@ export async function getAllProductsPaginated(page: number = 1): Promise<Product
 
   return nodes.map((edge: any) => {
     const node = edge.node
-
     return {
       id: node.id,
       title: node.title,

@@ -26,7 +26,7 @@ interface ArtworkLightboxProps {
  * - Displays related artwork in the same gallery if enabled
  * - Central to product experience on detail pages
  */
-export default function ArtworkLightbox({ currentProduct, relatedProducts = [] }: ArtworkLightboxProps) {
+export default function SimpleArtworkLightbox({ currentProduct, relatedProducts = [] }: ArtworkLightboxProps) {
   const [open, setOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 

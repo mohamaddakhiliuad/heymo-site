@@ -24,12 +24,10 @@ export const showAddToCartToast = ({
   title,
   quantity,
   color,
-  productUrl,
 }: {
   title: string
   quantity: number
   color?: string
-  productUrl: string
 }) => {
   toast.custom((t: Toast) => (
     <div className={toastBoxClass(t.visible)}>
@@ -42,7 +40,7 @@ export const showAddToCartToast = ({
           </p>
           <p className="text-[#5e4033]/70">added to your cart successfully.</p>
           <div className="mt-2 flex gap-4">
-            <a href={`${productUrl}/cart`} className={toastLink}>
+            <a href="/cart" className={toastLink}>
               View Cart
             </a>
             <button onClick={() => toast.dismiss(t.id)} className={toastLink}>

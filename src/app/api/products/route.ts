@@ -8,8 +8,6 @@ export async function GET(request: Request) {
   const handle = searchParams.get('handle')
   const count = searchParams.get('count') || '3'
 
-  console.log('[INFO] Request params:', { handle, count })
-
   let query = ''
 
   if (handle) {
@@ -37,12 +35,14 @@ export async function GET(request: Request) {
               node {
                 id
                 title
-                image {
-                  url
-                  altText
-                }
-                selectedOptions {
-                  name
+                image { url altText }
+                price { amount currencyCode }
+                selectedOptions { name value }
+                metafields(identifiers: [
+                  { namespace: "custom", key: "show_price" },
+                  { namespace: "custom", key: "description" }
+                ]) {
+                  key
                   value
                 }
               }
@@ -53,9 +53,11 @@ export async function GET(request: Request) {
             { namespace: "custom", key: "medium" },
             { namespace: "custom", key: "signed_by" },
             { namespace: "custom", key: "availability" },
-            { namespace: "custom", key: "year_created" }
+            { namespace: "custom", key: "year_created" },
+            { namespace: "custom", key: "show_price" },
+            { namespace: "custom", key: "has_print" },
+            { namespace: "custom", key: "has_nft" }
           ]) {
-            namespace
             key
             value
           }
@@ -89,14 +91,9 @@ export async function GET(request: Request) {
                   node {
                     id
                     title
-                    image {
-                      url
-                      altText
-                    }
-                    selectedOptions {
-                      name
-                      value
-                    }
+                    image { url altText }
+                    selectedOptions { name value }
+                    price { amount currencyCode }
                   }
                 }
               }
@@ -118,21 +115,67 @@ export async function GET(request: Request) {
     })
 
     const json = await response.json()
-    //
-    // console.log('[DEBUG] Shopify GraphQL response:', JSON.stringify(json, null, 2))
 
     if (handle) {
-      const product = json?.data?.productByHandle
-
-      if (!product) {
-        console.warn('[WARN] Product not found for handle:', handle)
+      const rawProduct = json?.data?.productByHandle
+      if (!rawProduct) {
         return new Response(JSON.stringify({ error: 'Product not found' }), {
           headers: { 'Content-Type': 'application/json' },
           status: 404,
         })
       }
 
-      return new Response(JSON.stringify({ product }), {
+      // ⛑️ Parse product-level metafields
+      const baseSpecs = Object.fromEntries(
+        (rawProduct.metafields || []).map(f => [f.key, f.value])
+      )
+
+      // 🎯 Parse variants with safe metafields
+      const variants = (rawProduct.variants?.edges || []).map(edge => {
+        const v = edge.node
+
+        const metafields = Array.isArray(v.metafields)
+          ? Object.fromEntries(v.metafields.map(f => [f.key, f.value]))
+          : {}
+
+        return {
+          id: v.id,
+          title: v.title,
+          price: v.price?.amount || '0.00',
+          currency: v.price?.currencyCode || 'USD',
+          image: v.image?.url,
+          color: v.selectedOptions?.[0]?.value || v.title,
+          show_price: metafields.show_price === 'true',
+          description: metafields.description || '',
+        }
+      })
+
+      const finalProduct = {
+        id: rawProduct.id,
+        title: rawProduct.title,
+        description: rawProduct.description,
+        handle: rawProduct.handle,
+        tags: rawProduct.tags || [],
+        category: rawProduct.productType || '',
+        imageSrc: rawProduct.featuredImage?.url || '',
+        price: rawProduct.priceRange?.minVariantPrice?.amount || '0.00',
+        currency: rawProduct.priceRange?.minVariantPrice?.currencyCode || 'USD',
+        variantId: variants[0]?.id || '',
+        variants,
+        size: baseSpecs.size || '',
+        medium: baseSpecs.medium || '',
+        availability: baseSpecs.availability || '',
+        signedBy: baseSpecs.signed_by || '',
+        yearCreated: baseSpecs.year_created || '',
+        show_price: baseSpecs.show_price === 'true',
+        has_print: baseSpecs.has_print === 'true',
+        has_nft: baseSpecs.has_nft === 'true',
+        url: `https://${SHOPIFY_DOMAIN}`
+      }
+
+      console.log('[DEBUG] Final product with specs:', finalProduct)
+
+      return new Response(JSON.stringify({ product: finalProduct }), {
         headers: { 'Content-Type': 'application/json' },
         status: 200,
       })
@@ -142,7 +185,6 @@ export async function GET(request: Request) {
       headers: { 'Content-Type': 'application/json' },
       status: 200,
     })
-
   } catch (error) {
     console.error('[ERROR] Shopify API fetch failed:', error)
     return new Response(
