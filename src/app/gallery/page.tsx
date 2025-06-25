@@ -2,7 +2,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getAllProductsPaginated } from '@/services/shopify'
+import { getAllProductsPaginated } from '@/components/services/shopify'
 import ProductGrid from '@/components/product/ProductGrid'
 import { Product } from '@/types/product'
 import { SHOPIFY_DOMAIN } from '@/config/settings'

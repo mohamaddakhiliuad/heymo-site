@@ -43,7 +43,7 @@ export default function ProductDetail({ product }: Props) {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
   useEffect(() => {
     if (!product?.id) return
-    import('@/services/shopify')
+    import('@/components/services/shopify')
       .then(mod => mod.getRelatedProductsDynamic(product))
       .then(setRelatedProducts)
       .catch(err => console.error('Error loading related products:', err))

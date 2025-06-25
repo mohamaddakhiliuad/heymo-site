@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Product } from '@/types/product'
 import ItemCard from './ItemCard'
 import { PRODUCT_SETTINGS } from '@/config/settings'
-import { getProducts } from '@/services/shopify'
+import { getProducts } from '@/components/services/shopify'
 
 const shopBase = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN 
 

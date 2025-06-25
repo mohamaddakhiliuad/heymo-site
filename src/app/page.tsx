@@ -1,10 +1,14 @@
 'use client'
-import Hero from "@/components/Hero"
+import Hero from "@/components/home/Hero"
+import AboutPreview from "@/components/home/AboutPreview" 
+import GalleryPreview from "@/components/home/GalleryPreview"
 import { useEffect, useState } from 'react'
-import { getAllProductsPaginated } from '@/services/shopify'
+import { getAllProductsPaginated } from '@/components/services/shopify'
 import ProductGrid from '@/components/product/ProductGrid'
 import { Product } from '@/types/product'
 import { SHOPIFY_DOMAIN } from '@/config/settings'
+import LegacyPreview from "@/components/home/LegacyPreview"
+import Footer from "@/components/shared/Footer"
 
 export default function Home() {
    const [products, setProducts] = useState<Product[]>([])
@@ -20,13 +24,11 @@ export default function Home() {
   return (
     <main>
       <Hero />
-   <ProductGrid
-           title=""
-           products={products}
-         shopUrl={SHOPIFY_DOMAIN}
-           isLoading={loading}
-         />
-  
+      <AboutPreview></AboutPreview>
+      <GalleryPreview></GalleryPreview>
+      <LegacyPreview></LegacyPreview>
+    
+   
     </main>
   )
 }

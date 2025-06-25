@@ -1,6 +1,6 @@
 export const runtime = 'nodejs'
 
-import { getProductByHandle } from '@/services/shopify'
+import { getProductByHandle } from '@/components/services/shopify'
 import { Product } from '@/types/product'
 import ProductDetail from '@/components/product/ProductDetail'
 
