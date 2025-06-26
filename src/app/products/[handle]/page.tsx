@@ -3,13 +3,17 @@ export const runtime = 'nodejs'
 import { getProductByHandle } from '@/components/services/shopify'
 import { Product } from '@/types/product'
 import ProductDetail from '@/components/product/ProductDetail'
+import type { Metadata, ResolvingMetadata } from 'next'
 
-// ✅ SEO metadata برای موتورهای جست‌وجو و شبکه‌های اجتماعی
-export async function generateMetadata({
-  params,
-}: {
+type Props = {
   params: { handle: string }
-}) {
+}
+
+// ✅ SEO Metadata
+export async function generateMetadata(
+  { params }: Props,
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
   const product: Product = await getProductByHandle(params.handle)
 
   return {
@@ -24,12 +28,8 @@ export async function generateMetadata({
   }
 }
 
-// ✅ صفحه محصول
-export default async function ProductPage({
-  params,
-}: {
-  params: { handle: string }
-}) {
+// ✅ Page Component
+export default async function ProductPage({ params }: Props) {
   const product: Product = await getProductByHandle(params.handle)
   return <ProductDetail product={product} />
 }
