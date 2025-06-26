@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useState } from 'react'
 import { Artwork } from '@/types/artwork'
 import ArtworkLightbox from '@/components/ui/SimpleArtworkLightbox'
@@ -10,16 +9,6 @@ interface ArtworkCardProps {
   artwork: Artwork
 }
 
-/**
- * ArtworkCard Component
- * ---------------------------------------------
- * Displays a museum-held or significant artwork with:
- * - Image (3/4 aspect ratio)
- * - Title
- * - Museum/Location + Year
- * - Optional link to certificate or document
- * - Clickable image to open lightbox
- */
 export default function ArtworkCard({ artwork }: ArtworkCardProps) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -31,7 +20,6 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
         itemType="https://schema.org/CreativeWork"
         onClick={() => setIsOpen(true)}
       >
-        {/* Image */}
         <div className="relative aspect-[3/4] w-full">
           <Image
             src={artwork.imageSrc}
@@ -43,7 +31,6 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
           />
         </div>
 
-        {/* Content */}
         <div className="p-4 flex-grow text-[#4e3a2f]">
           <h3 className="text-md font-semibold mb-2" itemProp="name">
             {artwork.title}
@@ -54,7 +41,6 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
         </div>
       </div>
 
-      {/* Lightbox */}
       <ArtworkLightbox
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

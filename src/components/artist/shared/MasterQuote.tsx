@@ -1,22 +1,16 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image' // ✅ Import Image
 
 interface MasterQuoteProps {
   text: string
   author: string
-  authorUrl?: string // ✅ لینک اختیاری به صفحه استاد
+  authorUrl?: string
   subtitle?: string
   avatarUrl?: string
 }
 
-/**
- * MasterQuote Component
- * --------------------------------------------------
- * Displays a highlighted quote with author name,
- * optional avatar and subtitle. Supports linking
- * the author's name and aligning avatar inline.
- */
 export default function MasterQuote({
   text,
   author,
@@ -29,17 +23,18 @@ export default function MasterQuote({
       {/* Quote text */}
       <blockquote className="italic text-lg leading-relaxed mb-4">“{text}”</blockquote>
 
-      {/* Author section with optional avatar and link */}
+      {/* Author section */}
       <div className="flex items-center gap-3">
         {avatarUrl && (
-          <img
+          <Image
             src={avatarUrl}
             alt={author}
-            className="w-10 h-10 rounded-full border border-[#e2d7c6] shadow"
+            width={40}
+            height={40}
+            className="rounded-full border border-[#e2d7c6] shadow object-cover"
           />
         )}
 
-        {/* Linked or plain author name */}
         {authorUrl ? (
           <Link
             href={authorUrl}
@@ -54,7 +49,6 @@ export default function MasterQuote({
         )}
       </div>
 
-      {/* Optional subtitle below */}
       {subtitle && <p className="text-sm text-[#9a8c7d] mt-1">{subtitle}</p>}
     </div>
   )

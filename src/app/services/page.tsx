@@ -19,7 +19,8 @@ export default function ServicesPage() {
         >
           <h1 className="text-4xl font-serif font-semibold mb-4">Our Offerings</h1>
           <p className="text-base text-[#7c6f63]">
-            At Noura, art is more than viewing — it's experiencing. Explore the services designed to help you connect, learn, and collaborate with Master Alijanpour.
+            At Noura, art is more than viewing — it&rsquo;s experiencing.
+            Explore the services designed to help you connect, learn, and collaborate with Master Alijanpour.
           </p>
         </motion.div>
 
