@@ -7,7 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 const shopifyUrl = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
 
 /**
- * Helper: Map Shopify node to Product
+ * 🔧 Helper: Map Shopify node to Product
  */
 function mapNodeToProduct(node: any): Product {
   return {
@@ -27,18 +27,24 @@ function mapNodeToProduct(node: any): Product {
 }
 
 /**
- * 🟢 getProductByHandle
+ * 🟢 getProductByHandle – fetches and transforms a single product
  */
 export async function getProductByHandle(handle: string): Promise<Product> {
   const res = await fetch(`${siteUrl}/api/products?handle=${handle}`)
-  if (!res.ok) throw new Error(`Failed to fetch product: ${res.status}`)
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch product: ${res.status}`)
+  }
 
   const data = await res.json()
-  const node = data.product
-  if (!node) throw new Error(`Product not found: ${handle}`)
 
-  const specs: Record<string, string> = {}
+  const node = data?.product
+  if (!node || typeof node !== 'object') {
+    throw new Error(`Product not found or invalid: ${handle}`)
+  }
+
   const metafieldsRaw = node.metafields || []
+  const specs: Record<string, string> = {}
   metafieldsRaw.forEach((field: { key: string; value: string }) => {
     specs[field.key] = field.value
   })
@@ -66,7 +72,7 @@ export async function getProductByHandle(handle: string): Promise<Product> {
     price: fallbackPrice,
     currency: fallbackCurrency,
     handle: node.handle,
-    url: node.url,
+    url: node.url || shopifyUrl,
     tags: node.tags || [],
     category: node.category || '',
     variantId: variants[0]?.id || '',
@@ -83,7 +89,7 @@ export async function getProductByHandle(handle: string): Promise<Product> {
 }
 
 /**
- * 🔄 getProducts
+ * 🔄 getProducts – fetch limited products for preview
  */
 export async function getProducts(count = 3): Promise<Product[]> {
   const res = await axios.get(`/api/products?count=${count}`)
@@ -127,7 +133,7 @@ export async function getRelatedProductsByTag(tag: string, excludeHandle: string
 }
 
 /**
- * 🔗 getRelatedProductsDynamic
+ * 🤖 getRelatedProductsDynamic – Chooses strategy dynamically
  */
 export async function getRelatedProductsDynamic(product: Product): Promise<Product[]> {
   const exclude = product.handle
@@ -141,7 +147,7 @@ export async function getRelatedProductsDynamic(product: Product): Promise<Produ
 }
 
 /**
- * 📄 getAllProductsPaginated
+ * 📄 getAllProductsPaginated – Fetches for archive or index view
  */
 export async function getAllProductsPaginated(page = 1): Promise<Product[]> {
   const PAGE_SIZE = 12
