@@ -37,7 +37,6 @@ export async function getProductByHandle(handle: string): Promise<Product> {
   }
 
   const data = await res.json()
-
   const node = data?.product
   if (!node || typeof node !== 'object') {
     throw new Error(`Product not found or invalid: ${handle}`)
@@ -92,7 +91,7 @@ export async function getProductByHandle(handle: string): Promise<Product> {
  * 🔄 getProducts – fetch limited products for preview
  */
 export async function getProducts(count = 3): Promise<Product[]> {
-  const res = await axios.get(`/api/products?count=${count}`)
+  const res = await axios.get(`${siteUrl}/api/products?count=${count}`)
   const nodes = res.data.products?.edges || []
   return nodes.map((edge: { node: any }) => mapNodeToProduct(edge.node))
 }
@@ -101,7 +100,7 @@ export async function getProducts(count = 3): Promise<Product[]> {
  * 🔎 getProductsByTag
  */
 export async function getProductsByTag(tag: string): Promise<Product[]> {
-  const res = await axios.get(`/api/products?tag=${tag}`)
+  const res = await axios.get(`${siteUrl}/api/products?tag=${tag}`)
   const nodes = res.data.products?.edges || []
   return nodes.map((edge: { node: any }) => mapNodeToProduct(edge.node))
 }
@@ -110,7 +109,7 @@ export async function getProductsByTag(tag: string): Promise<Product[]> {
  * 🔁 getRelatedProductsByCategory
  */
 export async function getRelatedProductsByCategory(category: string, excludeHandle: string, limit = 4): Promise<Product[]> {
-  const res = await axios.get(`/api/products?category=${category}`)
+  const res = await axios.get(`${siteUrl}/api/products?category=${category}`)
   const nodes = res.data.products?.edges || []
   return nodes
     .map((edge: { node: any }) => edge.node)
@@ -123,7 +122,7 @@ export async function getRelatedProductsByCategory(category: string, excludeHand
  * 🎯 getRelatedProductsByTag
  */
 export async function getRelatedProductsByTag(tag: string, excludeHandle: string, limit = 4): Promise<Product[]> {
-  const res = await axios.get(`/api/products?tag=${tag}`)
+  const res = await axios.get(`${siteUrl}/api/products?tag=${tag}`)
   const nodes = res.data.products?.edges || []
   return nodes
     .map((edge: { node: any }) => edge.node)
@@ -151,7 +150,7 @@ export async function getRelatedProductsDynamic(product: Product): Promise<Produ
  */
 export async function getAllProductsPaginated(page = 1): Promise<Product[]> {
   const PAGE_SIZE = 12
-  const res = await axios.get(`/api/products?count=${PAGE_SIZE}`)
+  const res = await axios.get(`${siteUrl}/api/products?count=${PAGE_SIZE}&page=${page}`)
   const nodes = res.data.products?.edges || []
   return nodes.map((edge: { node: any }) => mapNodeToProduct(edge.node))
 }
