@@ -1,18 +1,17 @@
-// ✅ Correct typing for Next.js App Router
 import { Metadata } from 'next'
 import { getProductByHandle } from '@/components/services/shopify'
 import { Product } from '@/types/product'
 import ProductDetail from '@/components/product/ProductDetail'
 
-type Props = {
-  params: {
-    handle: string
-  }
-}
-
-// ✅ Dynamic metadata generator
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = await getProductByHandle(params.handle)
+/**
+ * Generates SEO metadata for the product page
+ * -------------------------------------------------
+ * This metadata is used for browser titles and social media sharing
+ */
+export async function generateMetadata(
+  { params }: { params: { handle: string } }
+): Promise<Metadata> {
+  const product: Product = await getProductByHandle(params.handle)
 
   return {
     title: `${product.title} | Noura Gallery`,
@@ -26,9 +25,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-// ✅ Dynamic route page function (server component)
-export default async function ProductPage({ params }: Props) {
-  const product = await getProductByHandle(params.handle)
+/**
+ * ProductPage component
+ * -------------------------------------------------
+ * Fetches full product data and renders the detail component
+ */
+export default async function ProductPage(
+  { params }: { params: { handle: string } }
+) {
+  const product: Product = await getProductByHandle(params.handle)
 
   return <ProductDetail product={product} />
 }
