@@ -4,14 +4,12 @@ import { Product } from '@/types/product'
 import ProductDetail from '@/components/product/ProductDetail'
 
 /**
- * Generates SEO metadata for the product page
- * -------------------------------------------------
- * This metadata is used for browser titles and social media sharing
+ * SEO metadata generation
  */
 export async function generateMetadata(
   { params }: { params: { handle: string } }
 ): Promise<Metadata> {
-  const product: Product = await getProductByHandle(params.handle)
+  const product = await getProductByHandle(params.handle)
 
   return {
     title: `${product.title} | Noura Gallery`,
@@ -26,13 +24,13 @@ export async function generateMetadata(
 }
 
 /**
- * ProductPage component
- * -------------------------------------------------
- * Fetches full product data and renders the detail component
+ * Dynamic product page
  */
-export default async function ProductPage(
-  { params }: { params: { handle: string } }
-) {
+export default async function ProductPage({
+  params,
+}: {
+  params: { handle: string }
+}) {
   const product: Product = await getProductByHandle(params.handle)
 
   return <ProductDetail product={product} />
