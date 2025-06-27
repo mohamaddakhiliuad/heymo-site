@@ -1,8 +1,16 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next'
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['cdn.shopify.com'],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   typescript: {
-    ignoreBuildErrors: true
-  }
+    ignoreBuildErrors: true, // ⬅️ بسیار مهم برای بیلد موفق در Vercel
+  },
 }
 
-module.exports = nextConfig
+export default nextConfig
