@@ -52,7 +52,7 @@ export default function Footer() {
 
       {/* Bottom Line */}
       <div className="mt-10 text-center text-xs text-[#d9cfc3]">
-        © {new Date().getFullYear()} Noura. All rights reserved.
+        © {new Date().getFullYear()} Rumilander. All rights reserved.
       </div>
     </footer>
   )
