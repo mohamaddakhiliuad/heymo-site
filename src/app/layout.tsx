@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Noura | Light for Living',
-  description: 'A lifestyle brand focused on mindful products and AI-based coaching tools.',
+  title: 'Rumilander | Art of Master Alijanpour, Persian Miniature & Islamic  Art',
+description: "Explore the world of Master Alijan Alijanpour — a global figure in Persian miniature and Islamic art. Rumilander showcases his timeless artworks, reflecting spiritual light, cultural heritage, and decades of mastery."
+
 }
 
 export default function RootLayout({

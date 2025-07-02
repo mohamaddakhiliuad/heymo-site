@@ -15,7 +15,7 @@ export async function generateMetadata(
   const product = await getProductByHandle(params.handle)
 
   return {
-    title: `${product.title} | Noura Gallery`,
+    title: `${product.title} | Rumilander`,
     description: product.description?.slice(0, 160),
     keywords: product.tags,
     openGraph: {

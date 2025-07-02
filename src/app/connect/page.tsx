@@ -16,7 +16,7 @@ export default function ConnectPage() {
         className="text-center max-w-3xl mx-auto mb-12"
       >
         <h1 className="text-4xl font-serif font-semibold mb-4">
-          Experience Noura — Connect with Master Alijanpour
+          Experience Rumilander — Connect with Master Alijanpour
         </h1>
         <p className="text-[#7c6f63] text-base leading-relaxed">
           Whether you wish to visit the gallery, commission a new work, attend a masterclass, or simply reach out — this form is your gateway.

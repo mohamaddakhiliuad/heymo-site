@@ -19,7 +19,7 @@ export default function Header() {
     <header className="bg-[#fff8f2] border-b border-[#e2d4c6] text-[#5e4033] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
         <Link href="/" className="text-xl font-serif font-bold">
-          Noura Gallery
+          RumiLand Art Gallery
         </Link>
 
         {/* Desktop Menu */}

@@ -10,13 +10,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 items-start text-sm">
         
         {/* 1. Brand */}
-        <div>
-          <h3 className="text-xl font-serif font-semibold mb-3">Noura Gallery</h3>
-          <p className="text-[#ddd0c2]">
-            Light for Living.  
-            A digital sanctuary for sacred art and timeless creativity.
-          </p>
-        </div>
+<div>
+  <h3 className="text-xl font-serif font-semibold mb-3">Rumilander Art Gallery</h3>
+  <p className="text-[#ddd0c2]">
+    Celebrating the timeless mastery of Persian miniature by Alijan Alijanpour.  
+    A digital sanctuary honoring sacred art, spiritual beauty, and the enduring soul of Iranian artistry.
+  </p>
+</div>
 
         {/* 2. Navigation */}
         <div>
