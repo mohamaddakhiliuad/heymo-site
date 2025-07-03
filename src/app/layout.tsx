@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import { CartProvider } from '@/context/CartContext'
 import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,6 +43,7 @@ export default function RootLayout({
           {/* Global Footer */}
           <Footer />
         </CartProvider>
+          <Analytics />
       </body>
     </html>
   )
