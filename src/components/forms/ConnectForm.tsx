@@ -1,19 +1,25 @@
-// components/forms/ConnectForm.tsx
 'use client'
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import emailjs from 'emailjs-com'
 
 export default function ConnectForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    type: 'Gallery Visit',
+    phone: '',
+    type: 'Private Gallery Visit',
     message: '',
     subscribe: false,
+    whatsapp: false,
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value, type, checked } = e.target
     setFormData(prev => ({
       ...prev,
@@ -24,15 +30,58 @@ export default function ConnectForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    // ✅ Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.email)) {
       alert('Please enter a valid email address.')
       return
     }
 
-    console.log('Form submitted:', formData)
-    // TODO: connect to API, EmailJS, or webhook
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          inquiry_type: formData.type,
+          message: formData.message,
+          subscribe: formData.subscribe ? 'Yes' : 'No',
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      .then(() => setSubmitted(true))
+      .catch(err => {
+        console.error('EmailJS error:', err)
+        alert('Something went wrong. Please try again.')
+      })
+  }
+
+  const whatsappLink = `https://wa.me/16474820073?text=Hello%20Rumilander%20Studio,%20I%20have%20a%20${encodeURIComponent(
+    formData.type
+  )}%20inquiry.%20Name:%20${encodeURIComponent(
+    formData.name
+  )}%20Email:%20${encodeURIComponent(formData.email)}`
+
+  if (submitted) {
+    return (
+      <div className="bg-white text-[#5e4033] p-8 rounded-xl shadow-lg max-w-xl mx-auto space-y-6 text-center">
+        <h2 className="text-2xl font-serif font-semibold">Message Sent</h2>
+        <p>
+          Thank you for contacting Rumilander Studio. We will respond within 48 hours.
+        </p>
+        {formData.whatsapp && (
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
+          >
+            Continue on WhatsApp
+          </a>
+        )}
+      </div>
+    )
   }
 
   return (
@@ -43,7 +92,10 @@ export default function ConnectForm() {
       transition={{ duration: 0.6 }}
       className="bg-white text-[#5e4033] p-8 rounded-xl shadow-lg max-w-xl mx-auto space-y-6"
     >
-      <h2 className="text-2xl font-serif font-semibold text-center">Connect with Master Alijanpour</h2>
+      <h2 className="text-2xl font-serif font-semibold text-center">Contact Rumilander Studio</h2>
+      <p className="text-sm text-center text-gray-500">
+        For gallery visits, commissions, or press inquiries related to Master Alijanpour, please complete the form below.
+      </p>
 
       <div className="space-y-4">
         <input
@@ -55,7 +107,6 @@ export default function ConnectForm() {
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-4 py-2"
         />
-
         <input
           type="email"
           name="email"
@@ -65,19 +116,26 @@ export default function ConnectForm() {
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-4 py-2"
         />
-
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Your phone number (optional)"
+          value={formData.phone}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-4 py-2"
+        />
         <select
           name="type"
           value={formData.type}
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-4 py-2"
         >
-          <option>Gallery Visit</option>
-          <option>Masterclass Request</option>
-          <option>Commission an Artwork</option>
-          <option>General Inquiry</option>
+          <option>Private Gallery Visit</option>
+          <option>Request a Masterclass</option>
+          <option>Commission a Custom Artwork</option>
+          <option>Media / Press Inquiry</option>
+          <option>Other</option>
         </select>
-
         <textarea
           name="message"
           rows={4}
@@ -86,7 +144,6 @@ export default function ConnectForm() {
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-4 py-2"
         />
-
         <label className="flex items-center gap-2 text-sm">
           <input
             type="checkbox"
@@ -95,6 +152,15 @@ export default function ConnectForm() {
             onChange={handleChange}
           />
           Subscribe to gallery updates and events
+        </label>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="whatsapp"
+            checked={formData.whatsapp}
+            onChange={handleChange}
+          />
+          I’d like to be contacted via WhatsApp
         </label>
       </div>
 
