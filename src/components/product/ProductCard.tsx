@@ -17,10 +17,16 @@ interface ProductCardProps {
  * - Title always visible under image
  * - "View Details" button
  * - Prevents image blurriness in grid
+ * - Disables right-click on image
  */
 export default function ProductCard({ product }: ProductCardProps) {
   const productLink = `/products/${product.handle}`
   const imageSrc = product.imageSrc
+
+  // Prevent right-click on image
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+  }
 
   return (
     <div
@@ -37,6 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover rounded-t-2xl"
           priority
+          onContextMenu={handleRightClick} // ❗ جلوگیری از راست‌کلیک
         />
       </div>
 

@@ -171,5 +171,38 @@ export default function ConnectForm() {
         Send Message
       </button>
     </motion.form>
-  )
+    {/* 🌐 Contact Information Section */}
+<div className="mt-10 bg-[#fff8f2] border-t border-gray-200 pt-6 text-sm text-[#5e4033] text-center space-y-2">
+
+  {/* Studio Address */}
+  <p className="flex items-center justify-center gap-2">
+    <span>📍</span>
+    <span>7163 Yonge Street, Suite 228 – Thornhill, ON, L3T 0C6</span>
+  </p>
+
+  {/* Phone & WhatsApp */}
+  <p className="flex items-center justify-center gap-2">
+    <span>📞</span>
+    <span>
+      Office: <a href="tel:+14168903132" className="underline hover:text-[#3e2e22]">(416) 890-3132</a> &nbsp;|&nbsp;
+      WhatsApp: <a href="https://wa.me/16474820073" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#3e2e22]">(647) 482-0073</a>
+    </span>
+  </p>
+
+  {/* Email */}
+  <p className="flex items-center justify-center gap-2">
+    <span>✉️</span>
+    <span>
+      Email: <a href="mailto:contact@rumilander.art" className="underline hover:text-[#3e2e22]">contact@rumilander.art</a>
+    </span>
+  </p>
+
+  {/* Global Reach */}
+  <p className="text-xs text-gray-500 pt-2">
+    Based in Toronto — available worldwide 🌍
+  </p>
+</div>
+
+      )
+      
 }

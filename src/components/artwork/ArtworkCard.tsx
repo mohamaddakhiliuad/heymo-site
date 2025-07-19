@@ -12,6 +12,11 @@ interface ArtworkCardProps {
 export default function ArtworkCard({ artwork }: ArtworkCardProps) {
   const [isOpen, setIsOpen] = useState(false)
 
+  // جلوگیری از راست کلیک روی تصویر
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+  }
+
   return (
     <>
       <div
@@ -25,6 +30,7 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
             src={artwork.imageSrc}
             alt={artwork.title}
             fill
+            onContextMenu={handleRightClick} // این خط اضافه شد
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover rounded-t-2xl"
             priority

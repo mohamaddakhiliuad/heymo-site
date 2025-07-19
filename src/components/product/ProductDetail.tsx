@@ -27,7 +27,7 @@ import ProductGrid from '@/components/product/ProductGrid'
 import ArtworkLightbox from '@/components/ui/ArtworkLightbox'
 import GalleryVariantSelector from '@/components/forms/GalleryVariantSelector'
 import { sectionWrapper } from '@/styles/formStyles'
-
+import SocialShareButtons from '@/components/ui/SocialShareButtons';
 interface Props {
   product: Product
 }
@@ -48,6 +48,15 @@ export default function ProductDetail({ product }: Props) {
       .then(setRelatedProducts)
       .catch(err => console.error('Error loading related products:', err))
   }, [product?.id])
+
+  // ✅ Disable right-click for this page
+  useEffect(() => {
+    const disableRightClick = (e: MouseEvent) => e.preventDefault()
+    document.addEventListener('contextmenu', disableRightClick)
+    return () => {
+      document.removeEventListener('contextmenu', disableRightClick)
+    }
+  }, [])
 
   return (
     <section className={clsx(sectionWrapper, 'bg-[#fff8f2] text-[#5e4033] font-serif')}>
@@ -112,6 +121,14 @@ export default function ProductDetail({ product }: Props) {
               )}
             </dl>
           </div>
+
+          {/* 📢 Copyright Warning */}
+          <p className="text-xs mt-8 text-[#7c6f63] italic leading-relaxed">
+            © All rights reserved. This artwork is the intellectual property of Master Alijan Alijanpour and the Rumilander website.  
+Sharing this page is welcome and encouraged, but downloading, reproducing, or using the image without permission is strictly prohibited.
+
+          </p>
+          <SocialShareButtons title="Check out this amazing profile!" />
         </article>
       </div>
 
