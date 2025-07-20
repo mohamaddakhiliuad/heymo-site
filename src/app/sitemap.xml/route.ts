@@ -1,15 +1,16 @@
-// app/sitemap.xml/route.ts
-
 import { getAllProductsPaginated } from '@/components/services/shopify'
 import { NextResponse } from 'next/server'
+
+// 🔒 جلوگیری کامل از prerender و caching در زمان build
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
 
 export async function GET() {
   const baseUrl = 'https://rumilander.art'
 
-  // ⛳️ فراخوانی همه محصولات از Shopify
-  const products = await getAllProductsPaginated(1) // صفحه اول فعلاً، بعداً می‌شه کامل‌ترش کرد
+  const products = await getAllProductsPaginated(1)
 
-  // 🎯 ساخت URL برای هر محصول
   const productUrls = products.map(product => {
     return `
       <url>
@@ -20,7 +21,6 @@ export async function GET() {
     `
   })
 
-  // 🧱 صفحات استاتیک سایت مثل gallery و contact
   const staticUrls = [
     '',
     '/gallery',
@@ -37,7 +37,6 @@ export async function GET() {
     `
   })
 
-  // 📦 نهایی: ساخت XML
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${staticUrls.join('')}

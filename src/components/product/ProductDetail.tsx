@@ -27,7 +27,7 @@ import ProductGrid from '@/components/product/ProductGrid'
 import ArtworkLightbox from '@/components/ui/ArtworkLightbox'
 import GalleryVariantSelector from '@/components/forms/GalleryVariantSelector'
 import { sectionWrapper } from '@/styles/formStyles'
-import SocialShareButtons from '@/components/ui/SocialShareButtons';
+
 interface Props {
   product: Product
 }
