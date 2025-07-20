@@ -128,7 +128,7 @@ export default function ProductDetail({ product }: Props) {
 Sharing this page is welcome and encouraged, but downloading, reproducing, or using the image without permission is strictly prohibited.
 
           </p>
-          <SocialShareButtons title="Check out this amazing profile!" />
+        
         </article>
       </div>
 
@@ -146,3 +146,5 @@ Sharing this page is welcome and encouraged, but downloading, reproducing, or us
     </section>
   )
 }
+
+
