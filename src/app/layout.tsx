@@ -6,6 +6,7 @@ import { CartProvider } from '@/context/CartContext'
 import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
 import { Analytics } from "@vercel/analytics/next"
+import Script from 'next/script' // ✅ اضافه شد
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,9 +19,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Rumilander | Art of Master Alijanpour, Persian Miniature & Islamic  Art',
-description: "Explore the world of Master Alijan Alijanpour — a global figure in Persian miniature and Islamic art. Rumilander showcases his timeless artworks, reflecting spiritual light, cultural heritage, and decades of mastery."
-
+  title: 'Rumilander | Art of Master Alijanpour, Persian Miniature & Islamic Art',
+  description:
+    "Explore the world of Master Alijan Alijanpour — a global figure in Persian miniature and Islamic art. Rumilander showcases his timeless artworks, reflecting spiritual light, cultural heritage, and decades of mastery."
 }
 
 export default function RootLayout({
@@ -30,6 +31,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-3H9YDPTXC1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3H9YDPTXC1');
+          `}
+        </Script>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <CartProvider>
           <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
@@ -43,7 +59,7 @@ export default function RootLayout({
           {/* Global Footer */}
           <Footer />
         </CartProvider>
-          <Analytics />
+        <Analytics />
       </body>
     </html>
   )
