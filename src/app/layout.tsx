@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Rumilander | Art of Master Alijanpour, Persian Miniature & Islamic Art',
+  title: 'Rumilander | Art of Master Alijan Alijanpour, Persian Miniature & Islamic Art',
   description:
     "Explore the world of Master Alijan Alijanpour — a global figure in Persian miniature and Islamic art. Rumilander showcases his timeless artworks, reflecting spiritual light, cultural heritage, and decades of mastery."
 }

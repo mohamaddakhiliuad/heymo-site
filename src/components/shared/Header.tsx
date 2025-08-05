@@ -7,7 +7,8 @@ import { useState } from 'react'
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Gallery', href: '/gallery' },
-  { label: 'Master Alijanpour', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Alijan Alijanpour', href: '/about' },
   { label: 'Services', href: '/services' },
   { label: 'Connect', href: '/connect' },
 ]

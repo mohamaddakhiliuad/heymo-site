@@ -24,6 +24,7 @@ export default function Footer() {
           <ul className="space-y-2 text-[#f0e7da]">
             <li><Link href="/" className="hover:underline">Home</Link></li>
             <li><Link href="/gallery" className="hover:underline">Gallery</Link></li>
+             <li><Link href="/blog" className="hover:underline">Blog</Link></li>
             <li><Link href="/about" className="hover:underline">About the Artist</Link></li>
             <li><Link href="/services" className="hover:underline">Servise</Link></li>
              <li><Link href="/connect" className="hover:underline">Contact Us</Link></li>

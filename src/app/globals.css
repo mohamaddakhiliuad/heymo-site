@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 @import "tailwindcss";
 
-
+/* ------------------------------
+   رنگ‌ها و متغیرهای پایه
+------------------------------ */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -21,12 +23,18 @@
   }
 }
 
+/* ------------------------------
+   بدنه اصلی سایت
+------------------------------ */
 body {
-  
   background: var(--background);
   color: var(--foreground);
   font-family: 'Playfair Display', Helvetica, sans-serif;
 }
+
+/* ------------------------------
+   انیمیشن ورود و خروج
+------------------------------ */
 @keyframes enter {
   from {
     opacity: 0;
@@ -56,21 +64,24 @@ body {
 .animate-leave {
   animation: leave 0.2s ease-in forwards;
 }
-/* Gallery masonry grid */
+
+/* ------------------------------
+   گالری Masonry
+------------------------------ */
 .my-masonry-grid {
   display: flex;
-  margin-left: -24px; /* gutter size offset */
+  margin-left: -24px; /* فاصله ستون‌ها */
   width: auto;
 }
 .my-masonry-grid_column {
-  padding-left: 24px; /* gutter size */
+  padding-left: 24px; /* فاصله ستون‌ها */
   background-clip: padding-box;
 }
 .my-masonry-grid_column > div {
   margin-bottom: 28px;
 }
 
-/* Optional glow or soft border effect around image cards */
+/* افکت حاشیه یا سایه نرم برای کارت‌ها */
 .my-masonry-grid_column > div > a {
   background-color: white;
   border-radius: 16px;
@@ -79,4 +90,74 @@ body {
 }
 .my-masonry-grid_column > div > a:hover {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------------------
+   استایل پیشرفته برای Markdown (.prose)
+------------------------------ */
+
+/* تیترهای اصلی */
+.prose h2 {
+  font-family: "Playfair Display", serif;
+  color: #5b4636; /* brown */
+  font-weight: bold;
+  border-bottom: 1px solid #e6dcd3;
+  padding-bottom: 0.3rem;
+  margin-top: 2.5rem;
+}
+
+.prose h3 {
+  font-family: "Playfair Display", serif;
+  color: #5b4636;
+  font-weight: 600;
+  margin-top: 1.8rem;
+}
+
+/* نقل‌قول‌ها */
+.prose blockquote {
+  background-color: #fef6ee; /* cream */
+  border-left: 4px solid #5b4636; /* brown */
+  padding: 1rem 1.5rem;
+  font-style: italic;
+  border-radius: 0.5rem;
+}
+
+/* تصاویر مقاله وسط‌چین و ظریف */
+.prose img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.5rem;
+  max-width: 80%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  background: none !important; /* حذف بک‌گراند ناخواسته */
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* کپشن تصاویر */
+.prose figure figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5b4636;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* لینک‌ها */
+.prose a {
+  color: #5b4636; /* brown */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  opacity: 0.8;
+}
+
+/* موبایل: تصویر تمام‌عرض */
+@media (max-width: 768px) {
+  .prose img {
+    max-width: 100%;
+  }
 }
