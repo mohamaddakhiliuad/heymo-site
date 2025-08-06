@@ -1,7 +1,8 @@
 ---
-title: "Interview with Master Alijan Alijanpour abour United Couple"
+title: "United Couple – Where Love, Art, and Iranian Mysticism Unite"
 date: "2025-07-31"
 coverImage: "/images/blog/united-cuple-interview.jpg"
+excerpt: "A spiritual line-based Persian miniature artwork exploring love and unity by Alijan Alijanpour"
 ---
 
 ## Introduction

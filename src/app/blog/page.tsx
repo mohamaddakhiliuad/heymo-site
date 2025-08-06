@@ -1,35 +1,39 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { getAllPosts } from '@/lib/mdLoader'
+import type { Metadata } from 'next'
+import BlogCard from '@/components/blog/BlogCard'
+
+// ✅ سئو: متادیتای صفحه اصلی بلاگ
+export const metadata: Metadata = {
+  title: "Blog – Insights from Master Alijanpour",
+  description: "Explore stories, interviews, and philosophies behind the artworks of Master Alijan Alijanpour.",
+}
 
 export default function BlogPage() {
   const posts = getAllPosts()
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold mb-8">Blog</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {posts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <div className="group border rounded-lg overflow-hidden hover:shadow-lg transition">
-              {post.coverImage && (
-                <div className="relative w-full h-60">
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                <p className="text-gray-500 text-sm">{post.date}</p>
-              </div>
-            </div>
-          </Link>
-        ))}
+    <main className="bg-cream min-h-screen py-12">
+      <div className="max-w-5xl mx-auto px-4">
+        <header className="text-center mb-12">
+          <h1 className="text-5xl font-serif text-brown font-bold mb-4">Blog</h1>
+          <p className="text-gray-600 text-lg">
+            Stories, interviews, and thoughts from Master Alijanpour’s world of miniature art.
+          </p>
+        </header>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <BlogCard
+              key={post.slug}
+              slug={post.slug}
+              title={post.title}
+              date={post.date}
+              excerpt={post.excerpt}
+              coverImage={post.coverImage}
+            />
+          ))}
+        </section>
       </div>
-    </div>
+    </main>
   )
 }
