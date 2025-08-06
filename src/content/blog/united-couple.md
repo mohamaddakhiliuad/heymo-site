@@ -6,7 +6,7 @@ excerpt: "A spiritual line-based Persian miniature artwork exploring love and un
 ---
 
 ## Introduction
-Master **Alijan Alijanpour** is one of the prominent figures in contemporary Persian miniature, offering a fresh perspective through his work **United Couple**.  
+Master [Alijan Alijanpour](https://rumilander.art/about) is one of the prominent figures in contemporary Persian miniature, offering a fresh perspective through his work **United Couple**.  
 Executed entirely in black and white using only lines, this piece stands as a unique achievement in the history of Persian miniature.  
 Its message transcends technique: a narrative of love, unity, and connection, born from the heart of Iranian mysticism and expressed in the universal language of art.
 

@@ -23,7 +23,9 @@ export default function LifeAndLight() {
           />
         </div>
         <blockquote className="text-[#4e3a2f] text-lg leading-relaxed italic">
-          &ldquo;Throughout my career, I have journeyed with intention to push beyond the traditions of Persian Miniature to expand upon it &mdash; shifting its emphasis from the physical world unto that of the spiritual world.&rdquo;
+          &ldquo;Throughout my career, I have journeyed with intention to push beyond the traditions of 
+       <a href='https://en.wikipedia.org/wiki/Persian_miniature' target='_blank'> Persian Miniature </a>   
+           to expand upon it &mdash; shifting its emphasis from the physical world unto that of the spiritual world.&rdquo;
         </blockquote>
       </div>
 

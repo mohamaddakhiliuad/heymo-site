@@ -14,7 +14,7 @@ export default function SacredWorks() {
   return (
     <FormWrapper
       title="Sacred Works"
-      description="A selection of works by Master Alijanpour currently housed in major museums and cultural institutions."
+      description="A selection of works by Master Alijan Alijanpour currently housed in major museums and cultural institutions."
     >
       {/* Museum list */}
       <div className="space-y-6">
