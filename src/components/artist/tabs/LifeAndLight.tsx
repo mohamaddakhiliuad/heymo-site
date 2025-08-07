@@ -37,7 +37,7 @@ export default function LifeAndLight() {
       {/* Biography */}
       <div className="mt-10 space-y-6 text-base text-[#4e3a2f] leading-relaxed">
         <p>
-          Born in 1956 in Fereydunkenar, Iran, Master Alijanpour discovered his passion for art at the age of seven and has never stopped creating since. In 2000, he immigrated to Canada and opened Irena Art Gallery &amp; School in Toronto, where he continues to mentor students and develop his unique style.
+          Born in 1956 in Fereydunkenar, Iran, Master Alijan Alijanpour discovered his passion for art at the age of seven and has never stopped creating since. In 2000, he immigrated to Canada and opened Irena Art Gallery &amp; School in Toronto, where he continues to mentor students and develop his unique style.
         </p>
         <p>
           Deeply influenced by poets like Rumi, Hafez, and Shams, his work blends divine femininity, cosmic symbolism, and classical miniature with contemporary expression. Each brushstroke is a call to spiritual reflection.
