@@ -1,0 +1,53 @@
+{
+  "title": "Mindfulness-Based Stress Reduction (MBSR): 8-Week Program",
+  "subtitle": "An evidence-informed curriculum to reduce stress, improve focus, and build resilient habits.",
+  "blurb": "Our MBSR follows the original structure popularized by Jon Kabat-Zinn, adapted for modern life and delivered with cultural sensitivity. Suitable for beginners and experienced practitioners.",
+  "audience": [
+    "Adults experiencing stress, anxiety, or burnout",
+    "Professionals seeking focus and clarity",
+    "Caregivers and students looking to build sustainable mindfulness habits"
+  ],
+  "outcomes": [
+    "Recognize stress triggers and respond with awareness",
+    "Develop a regular mindfulness practice (formal & informal)",
+    "Improve emotion regulation and self-compassion",
+    "Enhance focus, sleep quality, and overall well-being"
+  ],
+  "logistics": {
+    "duration": "8 weekly sessions + 1 retreat day (optional)",
+    "sessionLength": "120 minutes per session",
+    "format": "In-person (Toronto) and Online (Zoom)",
+    "groupSize": "6–14 participants",
+    "homePractice": "20–30 minutes per day (guided audios provided)",
+    "requirements": [
+      "Willingness to practice between sessions",
+      "A quiet space for online participants"
+    ],
+    "pricing": {
+      "currency": "CAD",
+      "tuition": 480,
+      "notes": "Sliding scale available. Please inquire."
+    }
+  },
+  "curriculum": [
+    { "week": 1, "title": "Awareness & Autopilot", "topics": ["Orientation", "Body Scan practice", "What is mindfulness?"], "homework": "Daily body scan (10–20 min) + noticing autopilot moments." },
+    { "week": 2, "title": "Perception & Stress", "topics": ["How perception shapes experience", "Stress reactivity"], "homework": "Pleasant event calendar + mindful movement (gentle)." },
+    { "week": 3, "title": "Presence in the Body", "topics": ["Mindful movement", "Working with sensations"], "homework": "Mindful movement video + 3-minute breathing space." },
+    { "week": 4, "title": "Stress Reactivity to Response", "topics": ["S.T.O.P. technique", "R.A.I.N. for difficult emotions"], "homework": "Practice STOP during daily stressors; note reflections." },
+    { "week": 5, "title": "Communication & Compassion", "topics": ["Mindful listening", "Self-compassion basics"], "homework": "Loving-kindness (short form) 3–4×/week." },
+    { "week": 6, "title": "Thoughts Are Not Facts", "topics": ["Cognitive awareness", "Relating to rumination"], "homework": "Labeling thoughts practice; journal 5–10 min." },
+    { "week": 7, "title": "Maintaining Practice", "topics": ["Habit design", "Values-aligned routines"], "homework": "Design a 10-min daily practice that fits your life." },
+    { "week": 8, "title": "Bringing It All Together", "topics": ["Review & next steps", "Resources"], "homework": "Create a personal mindfulness plan for 4 weeks." }
+  ],
+  "retreat": {
+    "title": "Silent Practice Day (Optional)",
+    "description": "An extended, guided period of silence to deepen practice: sitting, walking, mindful movement, and compassion practices."
+  },
+  "faq": [
+    { "q": "Do I need prior experience?", "a": "No. The program is beginner-friendly and also valuable for experienced practitioners." },
+    { "q": "What if I miss a session?", "a": "We provide brief recaps and suggested home practice. You can continue with the group." },
+    { "q": "Is this therapy?", "a": "MBSR is educational and skill-based. It is not a substitute for therapy or medical treatment." },
+    { "q": "Is there a sliding scale?", "a": "Yes. Please contact us to discuss options." }
+  ]
+ 
+}

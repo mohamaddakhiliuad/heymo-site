@@ -1,0 +1,30 @@
+{
+  "title": "روز سکوت ذهن‌آگاه — آبان ۱۴۰۴",
+  "subtitle": "یک روز تمرین سکوت و حضور",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "همراه ما باشید برای یک روز کامل سکوت و تمرین‌های ذهن‌آگاهی.",
+      "image": "/images/programs/retreat.jpg",
+      "primaryCtaHref": "/fa/booking",
+      "primaryCtaLabel": "رزرو",
+      "secondaryCtaHref": "/fa/programs",
+      "secondaryCtaLabel": "همهٔ برنامه‌ها"
+    },
+    {
+      "type": "schedule",
+      "title": "زمان‌بندی",
+      "rows": [
+        { "label": "تاریخ", "value": "2025-11-16" },
+        { "label": "مدت", "value": "۱ روز" },
+        { "label": "محل", "value": "تورنتو" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 120,
+      "notes": "ناهار و چای در هزینه شامل است."
+    }
+  ]
+}

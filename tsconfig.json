@@ -33,7 +33,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "src/app/[locale]/booking/p"  ],
   "exclude": [
     "node_modules",
     ".next"

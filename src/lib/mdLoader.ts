@@ -1,89 +1,106 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
-import externalLinks from 'remark-external-links' // 🧩 For auto external <a target="_blank">
- 
-// 🗂️ Resolve the blog content directory (flexible for dev/prod)
-function resolvePostsDirectory() {
-  const possiblePaths = [
-    path.join(process.cwd(), 'src', 'content', 'blog'),  // typical src/ structure
-    path.join(process.cwd(), 'content', 'blog'),         // flat root structure (fallback)
-  ]
+// src/lib/mdLoader.ts
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
+import remarkGfm from "remark-gfm";
+import externalLinks from "remark-external-links";
 
-  for (const p of possiblePaths) {
-    if (fs.existsSync(p)) return p
+export type Locale = "fa" | "en";
+const SUPPORTED_EXT = [".md", ".mdx"];
+const DEFAULT_LOCALE: Locale = "en";
+
+// پوشه‌های احتمالی محتوا (هر دو الگو را پوشش می‌دهیم)
+function resolvePostsDirectory(locale: Locale) {
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "content", locale, "blog"),
+    path.join(cwd, "src", "content", locale, "blog"),
+    path.join(cwd, "content", "blog", locale),
+    path.join(cwd, "src", "content", "blog", locale),
+  ];
+  for (const p of candidates) {
+    if (fs.existsSync(p)) return p;
   }
-
   throw new Error(
-    '❌ Blog content folder not found. Checked: ' + possiblePaths.join(', ')
-  )
+    `❌ Blog content folder not found for locale "${locale}". Checked: ${candidates.join(", ")}`
+  );
 }
 
-const postsDirectory = resolvePostsDirectory()
+const norm = (s: string) =>
+  s.replace(/\.[^.]+$/, "").trim().toLowerCase().replace(/[_\s]+/g, "-").replace(/-+/g, "-");
 
-// 📥 Load all valid blog posts (with title + date)
-export function getAllPosts() {
-  const fileNames = fs.readdirSync(postsDirectory)
+function findFileBySlug(dir: string, inputSlug: string) {
+  const want = norm(inputSlug);
+  const files = fs.readdirSync(dir);
+  return files.find((f) => {
+    const ext = path.extname(f).toLowerCase();
+    if (!SUPPORTED_EXT.includes(ext)) return false;
+    return norm(path.parse(f).name) === want;
+  });
+}
 
-  const posts = fileNames
-    .filter((fileName) => fileName.endsWith('.md')) // only .md files
-    .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
+// ——— API ———
+export function getAllPosts(locale: Locale = DEFAULT_LOCALE) {
+  const dir = resolvePostsDirectory(locale);
+  if (!fs.existsSync(dir)) return [];
 
-      // ⛔ skip if required metadata is missing
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => SUPPORTED_EXT.includes(path.extname(f).toLowerCase()));
+
+  const posts = files
+    .map((file) => {
+      const full = path.join(dir, file);
+      const raw = fs.readFileSync(full, "utf8");
+      const { data, content } = matter(raw);
+      const slug = path.parse(file).name;
       if (!data.title || !data.date) {
-        console.warn(`⚠️ Skipping "${fileName}" – missing title or date`)
-        return null
+        console.warn(`⚠️ Skipping "${file}" – missing title or date`);
+        return null;
       }
-
       return {
         slug,
         title: data.title,
         date: data.date,
-        excerpt: data.excerpt ?? '',
-        coverImage: data.coverImage ?? '',
-      }
+        excerpt: data.excerpt ?? content.slice(0, 180),
+        coverImage: data.coverImage ?? "",
+        tags: data.tags ?? [],
+        locale,
+      };
     })
-    .filter(Boolean) // remove nulls
+    .filter(Boolean) as any[];
 
-  // 📅 Sort by date (newest first)
-  return posts.sort((a, b) => (a!.date < b!.date ? 1 : -1))
+  // جدیدترین‌ها اول
+  posts.sort((a, b) => (new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1));
+  return posts;
 }
 
-// 📄 Load a single post by slug
-export async function getPostBySlug(slug: string) {
-  const fullPath = path.join(postsDirectory, `${slug}.md`)
-
-  // 🚨 File not found
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`❌ Post not found: ${slug}.md`)
+export async function getPostBySlug(locale: Locale, slug: string) {
+  const dir = resolvePostsDirectory(locale);
+  const hit = findFileBySlug(dir, slug);
+  if (!hit) {
+    throw new Error(`❌ Post not found: ${slug}`);
   }
+  const full = path.join(dir, hit);
+  const raw = fs.readFileSync(full, "utf8");
+  const { data, content } = matter(raw);
 
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
-
-  // 🧠 Convert markdown to HTML + auto external link attributes
-  const processedContent = await remark()
-    .use(externalLinks, {
-      target: '_blank',
-      rel: ['noopener', 'noreferrer'],
-    })
-    .use(html)
-    .process(content)
-
-  const contentHtml = processedContent.toString()
+  const processed = await remark()
+    .use(remarkGfm)
+    .use(externalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] })
+    .use(remarkHtml)
+    .process(content);
 
   return {
-    slug,
+    slug: path.parse(hit).name,
     title: data.title,
     date: data.date,
-    excerpt: data.excerpt ?? '',
-    coverImage: data.coverImage ?? '',
-    contentHtml,
-  }
+    excerpt: data.excerpt ?? "",
+    coverImage: data.coverImage ?? "",
+    tags: data.tags ?? [],
+    contentHtml: processed.toString(),
+    locale,
+  };
 }

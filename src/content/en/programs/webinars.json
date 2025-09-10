@@ -1,0 +1,30 @@
+{
+  "title": "Mindfulness at Work — Dec 2025",
+  "subtitle": "60-min practical session",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "A free webinar on applying mindfulness in your workplace.",
+      "image": "/images/programs/webinar.jpg",
+      "primaryCtaHref": "/en/booking",
+      "primaryCtaLabel": "Register",
+      "secondaryCtaHref": "/en/programs",
+      "secondaryCtaLabel": "All programs"
+    },
+    {
+      "type": "schedule",
+      "title": "Details",
+      "rows": [
+        { "label": "Date", "value": "2025-12-05" },
+        { "label": "Duration", "value": "60 minutes" },
+        { "label": "Location", "value": "Online (Zoom)" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 0,
+      "notes": "This webinar is free, but registration is required."
+    }
+  ]
+}

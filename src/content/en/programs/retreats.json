@@ -1,0 +1,30 @@
+{
+  "title": "Mindful Day Retreat — Nov 2025",
+  "subtitle": "A silent day of practice",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "Join us for a full day of silence and mindfulness practices.",
+      "image": "/images/programs/retreat.jpg",
+      "primaryCtaHref": "/en/booking",
+      "primaryCtaLabel": "Reserve",
+      "secondaryCtaHref": "/en/programs",
+      "secondaryCtaLabel": "All programs"
+    },
+    {
+      "type": "schedule",
+      "title": "Schedule",
+      "rows": [
+        { "label": "Date", "value": "2025-11-16" },
+        { "label": "Duration", "value": "1 day" },
+        { "label": "Location", "value": "Toronto" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 120,
+      "notes": "Lunch and tea included."
+    }
+  ]
+}

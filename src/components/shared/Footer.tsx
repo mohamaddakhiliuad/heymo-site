@@ -1,60 +1,89 @@
-// components/shared/Footer.tsx
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { FaInstagram, FaLinkedin, FaYoutube, FaPinterest } from 'react-icons/fa'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import site from "@/config/site";
+import { inferLocaleFromPath, localizedHref } from "@/lib/locale";
+import { FaInstagram, FaLinkedin, FaYoutube, FaPinterest } from "react-icons/fa";
+
+const ICONS = {
+  Instagram: FaInstagram,
+  LinkedIn: FaLinkedin,
+  YouTube: FaYoutube,
+  Pinterest: FaPinterest,
+};
 
 export default function Footer() {
-  return (
-    <footer className="bg-[#5e4033] text-[#fff8f2] px-6 md:px-20 py-12">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 items-start text-sm">
-        
-        {/* 1. Brand */}
-<div>
-  <h3 className="text-xl font-serif font-semibold mb-3">Rumilander Art Gallery</h3>
-  <p className="text-[#ddd0c2]">
-    Celebrating the timeless mastery of Persian miniature by Alijan Alijanpour.  
-    A digital sanctuary honoring sacred art, spiritual beauty, and the enduring soul of Iranian artistry.
-  </p>
-</div>
+  const pathname = usePathname() || "/";
+  const locale = inferLocaleFromPath(pathname);
+  const f = site.footer;
 
-        {/* 2. Navigation */}
+  const columns = f.columns[locale] || [];
+  const legal   = f.legal?.[locale] || [];
+  const copy    = f.copy[locale] || f.copy.en;
+
+  const isAccent = (f.variant || "surface") === "accent";
+  const wrap      = isAccent ? "bg-[rgb(var(--color-accent))] text-[rgb(var(--color-on-accent))]" : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text))]";
+  const subtle    = isAccent ? "text-[rgb(var(--color-on-accent))]/80" : "text-[rgb(var(--color-text))]/80";
+  const linkHover = isAccent ? "hover:text-[rgb(var(--color-on-accent))]" : "hover:text-[rgb(var(--color-accent))]";
+  const borderCls = isAccent ? "border-[rgb(var(--color-on-accent))]/20" : "border-[var(--color-border)]";
+
+  return (
+    <footer className={`${wrap} px-6 md:px-20 py-12`}>
+      <div className="mx-auto grid max-w-7xl items-start gap-10 text-sm md:grid-cols-3">
+        {/* Brand */}
         <div>
-          <h4 className="font-semibold mb-3">Explore</h4>
-          <ul className="space-y-2 text-[#f0e7da]">
-            <li><Link href="/" className="hover:underline">Home</Link></li>
-            <li><Link href="/gallery" className="hover:underline">Gallery</Link></li>
-             <li><Link href="/blog" className="hover:underline">Blog</Link></li>
-            <li><Link href="/about" className="hover:underline">About the Artist</Link></li>
-            <li><Link href="/services" className="hover:underline">Servise</Link></li>
-             <li><Link href="/connect" className="hover:underline">Contact Us</Link></li>
-          </ul>
+          <h3 className="mb-3 font-serif text-xl font-semibold">{site.brand.name}</h3>
+          {site.brand.tagline ? <p className={subtle}>{site.brand.tagline}</p> : null}
         </div>
 
-        {/* 3. Social */}
+        {/* Navigation */}
         <div>
-          <h4 className="font-semibold mb-3">Follow</h4>
-          <div className="flex gap-4 text-[#f0e7da]">
-            <Link href="https://instagram.com" target="_blank" className="hover:text-amber-300" aria-label="Instagram">
-              <FaInstagram size={20} />
-            </Link>
-            <Link href="https://linkedin.com" target="_blank" className="hover:text-amber-300" aria-label="LinkedIn">
-              <FaLinkedin size={20} />
-            </Link>
-            <Link href="https://youtube.com" target="_blank" className="hover:text-amber-300" aria-label="YouTube">
-              <FaYoutube size={20} />
-            </Link>
-            <Link href="https://pinterest.com" target="_blank" className="hover:text-amber-300" aria-label="Pinterest">
-              <FaPinterest size={20} />
-            </Link>
+          <h4 className="mb-3 font-semibold">{locale === "fa" ? "کاوش" : "Explore"}</h4>
+          {columns.map((col) => (
+            <ul key={col.title} className={`space-y-2 ${subtle}`}>
+              {col.links.map((l) => (
+                <li key={`${l.label}-${l.href}`}>
+                  <Link
+                    href={localizedHref(l.href, locale)}
+                    target={l.external ? "_blank" : undefined}
+                    rel={l.external ? "noopener noreferrer" : undefined}
+                    className={`hover:underline ${linkHover}`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+
+        {/* Social */}
+        <div>
+          <h4 className="mb-3 font-semibold">{locale === "fa" ? "دنبال کنید" : "Follow"}</h4>
+          <div className={`flex gap-4 ${subtle}`}>
+            {f.socials?.map((s) => {
+              const Icon = (ICONS as any)[s.label] || FaInstagram;
+              return (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className={linkHover}
+                >
+                  <Icon size={20} />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Bottom Line */}
-      <div className="mt-10 text-center text-xs text-[#d9cfc3]">
-        © {new Date().getFullYear()} Rumilander. All rights reserved.
-      </div>
+      {/* Bottom */}
+      <div className={`mt-10 text-center text-xs ${subtle}`}>{copy}</div>
+      <div className={`mt-6 border-t ${borderCls}`} />
     </footer>
-  )
+  );
 }

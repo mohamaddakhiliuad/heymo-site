@@ -1,82 +1,113 @@
-// formStyles.ts
-// ------------------------------
-// Reusable design system styles for Noura project
-// Sourced values are imported from theme.ts to ensure central control and consistency.
+// src/styles/formStyles.ts
+// Centralized, token-based UI classes for buttons, inputs, cards, etc.
+// Uses CSS variables defined in globals.css (Sage Calm theme).
+// No hardcoded hex colors; everything reads from tokens.
 
-import { colors, borderRadius, typography } from './theme'
+export const cn = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
-/** ProductCard */
-export const cardBase =
-  'bg-white rounded-xl shadow-md p-4 min-h-[460px] flex flex-col justify-between'
+/* ───────────────────────────────
+   Buttons
+   ─────────────────────────────── */
+const baseBtn =
+  "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium " +
+  "transition-colors duration-200 disabled:opacity-60 disabled:pointer-events-none " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 " +
+  "ring-offset-[rgb(var(--color-surface))]";
 
-/** Product Image */
-export const productImage =
-  'w-full h-[260px] object-contain bg-white p-4 rounded-xl shadow-md transition-transform duration-300 hover:scale-105'
+export const button = {
+  primary: cn(
+    baseBtn,
+    "bg-[rgb(var(--color-accent))] text-[rgb(var(--color-on-accent))]",
+    "hover:opacity-90",
+    "focus-visible:ring-[rgb(var(--color-accent))]"
+  ),
+  outline: cn(
+    baseBtn,
+    "border border-[var(--color-border)] text-[rgb(var(--color-text))] bg-[rgb(var(--color-surface))]",
+    "hover:bg-[rgb(var(--color-surface-muted))]",
+    "focus-visible:ring-[rgb(var(--color-accent))]"
+  ),
+  ghost: cn(
+    baseBtn,
+    "text-[rgb(var(--color-text))] bg-transparent",
+    "hover:bg-[rgb(var(--color-surface-muted))]",
+    "focus-visible:ring-[rgb(var(--color-accent))]"
+  ),
+  link: cn(
+    "inline-flex items-center gap-1 font-medium underline underline-offset-4",
+    "text-[rgb(var(--color-accent))] hover:opacity-80"
+  ),
+  // Size variants
+  sm: "px-3 py-2 text-sm rounded-lg",
+  lg: "px-6 py-3 text-base rounded-xl",
+  icon: "p-2 rounded-lg",
+};
 
-/** Product Title */
-export const productTitle = `${typography.heading} text-lg mb-2`
-export const productTitleInsidGrid = `text-lg ${typography.heading} mt-4`
+/* ───────────────────────────────
+   Form controls
+   ─────────────────────────────── */
+const baseField =
+  "block w-full rounded-lg px-3.5 py-2.5 text-[rgb(var(--color-text))] " +
+  "bg-[rgb(var(--color-surface))] placeholder:text-[rgb(var(--color-text-muted))] " +
+  "border border-[var(--color-border)] shadow-[0_1px_0_rgba(0,0,0,0.02)] " +
+  "focus:outline-none focus:ring-2 focus:ring-[rgb(var(--color-accent))] " +
+  "disabled:opacity-60 disabled:pointer-events-none";
 
-/** Product Description */
-export const productDescription = `${typography.body} line-clamp-2 mt-1`
+export const field = {
+  input: baseField,
+  textarea: cn(baseField, "min-h-[112px]"),
+  select: baseField,
+  // Field wrapper for label + control + hint/error
+  group: "space-y-2",
+  label:
+    "block text-sm font-medium text-[rgb(var(--color-text))] peer-disabled:opacity-60",
+  hint: "text-sm text-[rgb(var(--color-text-muted))]",
+  error: "text-sm font-medium text-red-700 dark:text-red-400",
+};
 
-/** Product Price */
-export const productPrice = `text-base font-semibold ${colors.primary && 'text-[#5e4033]'} mt-2`
+/* ───────────────────────────────
+   Cards & Surfaces
+   ─────────────────────────────── */
+export const card = {
+  base:
+    "rounded-2xl border border-[var(--color-border)] " +
+    "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text))] " +
+    "shadow-[0_6px_14px_rgba(0,0,0,0.05)]",
+  padded: "p-5 md:p-6",
+  hover: "transition-shadow hover:shadow-[0_8px_22px_rgba(0,0,0,0.08)]",
+  muted: "bg-[rgb(var(--color-surface-muted))]",
+  header: "mb-3",
+  title: "text-lg md:text-xl font-semibold tracking-tight",
+  subtitle: "text-[rgb(var(--color-text-muted))]",
+  footer: "mt-4",
+};
 
-/** Card Button Group */
-export const cardButtonGroup =
-  'flex flex-wrap justify-start items-center gap-4 mt-4'
+/* ───────────────────────────────
+   Badges / Chips
+   ─────────────────────────────── */
+export const badge = {
+  base:
+    "inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium " +
+    "bg-[rgb(var(--color-surface-muted))] text-[rgb(var(--color-text))]",
+  onAccent:
+    "bg-[rgb(var(--color-on-accent))] text-[rgb(var(--color-accent))]",
+};
 
-/** Button Styles */
-export const buttonPrimary = `bg-[#5e4033] text-white text-sm px-5 py-2 ${borderRadius.button} hover:bg-[#3e2e24] transition`
-export const buttonOutline = `border border-[#5e4033] text-[#5e4033] text-sm px-5 py-2 ${borderRadius.button} hover:bg-[#5e4033] hover:text-white transition`
-export const buttonCartFull = `${buttonPrimary} px-6 py-3 text-sm flex items-center gap-2`
-export const buttonCartCompact = `${buttonPrimary} text-sm px-4 py-2 flex items-center gap-2`
+/* ───────────────────────────────
+   Layout helpers
+   ─────────────────────────────── */
+export const layout = {
+  container: "mx-auto max-w-5xl px-4",
+  section: "py-10 md:py-14",
+  mutedBg: "bg-[rgb(var(--color-surface-muted))]",
+};
 
-/** Quantity Selector */
-export const quantityBox = 'border border-[#5e4033] rounded-full flex items-center px-4 py-1'
-export const quantityButton = 'text-[#5e4033] text-lg px-2 hover:text-[#3e2e24] transition'
-
-/** Variant Selector */
-export const variantButtonClass = (selected: boolean) =>
-  `px-4 py-1 border rounded-full text-sm transition ${
-    selected
-      ? 'bg-[#5e4033] text-white'
-      : 'border-[#5e4033] text-[#5e4033] hover:bg-[#fef6e4]'
-  }`
-
-/** Filter Buttons */
-export const filterGroup = 'flex flex-wrap items-center gap-4 mb-6'
-export const filterButton = 'px-4 py-1 border border-[#5e4033] text-[#5e4033] rounded-full text-sm transition hover:bg-[#fef6e4]'
-export const filterButtonActive = 'px-4 py-1 bg-[#5e4033] text-white rounded-full text-sm transition'
-export const filterDropdown = 'px-3 py-1 border border-[#5e4033] text-sm rounded text-[#5e4033] bg-white'
-
-/** Section Layout */
-export const sectionWrapper = 'w-full mt-10 px-4 sm:px-6 lg:px-8'
-export const sectionTitle = 'text-2xl font-serif text-[#5e4033] mb-6'
-export const gridBase = 'grid gap-6'
-
-/** Breadcrumb */
-export const breadcrumbWrapper = 'text-sm text-gray-400 mb-2'
-export const breadcrumbLink = 'hover:underline text-gray-500'
-export const breadcrumbCurrent = 'text-[#5e4033] font-medium'
-
-/** Form Section */
-export const formSectionWrapper = 'max-w-2xl mx-auto px-6 py-10'
-export const formTitle = 'text-2xl font-semibold text-[#5e4033] mb-2'
-export const formDescription = 'text-sm text-gray-600 mb-6'
-
-/** Skeleton */
-export const skeletonCard = 'bg-white rounded-xl shadow-md p-4 animate-pulse space-y-4'
-export const skeletonBlock = 'h-4 bg-gray-200 rounded'
-
-/** Toast */
-export const toastBox = 'bg-[#fff8f2] border border-[#5e4033] shadow-lg rounded-xl p-4 ring-1 ring-black ring-opacity-5 text-[#5e4033] max-w-sm w-full'
-export const toastLink = 'underline text-[#5e4033] hover:text-[#3e2e24] transition'
-
-/** Artwork Styles */
-export const artworkImage = 'w-full h-[300px] object-contain rounded-md bg-[#f9f9f9] transition-transform duration-300 group-hover:scale-105'
-export const artworkVideo = 'w-full h-[300px] object-contain rounded-md bg-black'
-export const artworkTitle = 'text-lg font-serif text-[#5e4033]'
-export const artworkBuyButton = 'text-sm text-white bg-[#5e4033] px-4 py-2 rounded-full inline-block text-center hover:bg-[#3e2e24] transition'
-export const artworkViewLink = 'text-sm underline text-[#5e4033]'
+/* ───────────────────────────────
+   Example usage:
+   <button className={button.primary}>Book a Call</button>
+   <a className={button.outline} href="/en/booking">Booking</a>
+   <input className={field.input} placeholder="Your name" />
+   <div className={cn(card.base, card.padded, card.hover)}>...</div>
+   <div className={cn(layout.container, layout.section)}>...</div>
+   ─────────────────────────────── */

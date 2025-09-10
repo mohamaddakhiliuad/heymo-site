@@ -1,0 +1,76 @@
+{
+  "sections": [
+    {
+      "title": "دوره‌های MBSR",
+      "items": [
+        {
+          "id": "mbsr-fall-2025",
+          "slug": "mbsr-8-week",
+          "title": "MBSR — دوره ۸ هفته‌ای (پاییز ۲۰۲۵)",
+          "subtitle": "کاهش استرس مبتنی بر شواهد",
+          "startDate": "2025-10-06",
+          "duration": "۸ هفته + یک روز سکوت",
+          "location": "تورنتو و آنلاین",
+          "price": { "currency": "CAD", "tuition": 480 },
+          "image": "/images/programs/mbsr.jpg",
+          "href": "/fa/programs/mbsr-8-week",
+          "ctaLabel": "مشاهده جزئیات"
+        }
+      ]
+    },
+    {
+      "title": "باشگاه کتاب ذهن‌آگاه",
+      "items": [
+        {
+          "id": "bookclub-oct-2025",
+          "slug": "book-club",
+          "title": "باشگاه کتاب — مهر ۱۴۰۴",
+          "subtitle": "خواندن و تأمل گروهی",
+          "startDate": "2025-10-15",
+          "duration": "۴ جلسه",
+          "location": "آنلاین (زوم)",
+          "price": { "currency": "CAD", "tuition": 80 },
+          "image": "/images/programs/bookclub.jpg",
+          "href": "/fa/programs/book-club",
+          "ctaLabel": "همراه می‌شوم"
+        }
+      ]
+    },
+    {
+      "title": "اردوها و دورهمی‌های ذهن‌آگاه",
+      "items": [
+        {
+          "id": "retreat-nov-2025",
+          "slug": "retreats",
+          "title": "روز سکوت ذهن‌آگاه — آبان ۱۴۰۴",
+          "subtitle": "یک روز تمرین متمرکز",
+          "startDate": "2025-11-16",
+          "duration": "۱ روز",
+          "location": "تورنتو",
+          "price": { "currency": "CAD", "tuition": 120 },
+          "image": "/images/programs/retreat.jpg",
+          "href": "/fa/programs/retreats",
+          "ctaLabel": "رزرو"
+        }
+      ]
+    },
+    {
+      "title": "وبینارها",
+      "items": [
+        {
+          "id": "webinar-dec-2025",
+          "slug": "webinars",
+          "title": "ذهن‌آگاهی در محیط کار — آذر ۱۴۰۴",
+          "subtitle": "۶۰ دقیقه نکته‌های کاربردی",
+          "startDate": "2025-12-05",
+          "duration": "۶۰ دقیقه",
+          "location": "آنلاین (زوم)",
+          "price": { "currency": "CAD", "tuition": 0 },
+          "image": "/images/programs/webinar.jpg",
+          "href": "/fa/programs/webinars",
+          "ctaLabel": "ثبت‌نام"
+        }
+      ]
+    }
+  ]
+}

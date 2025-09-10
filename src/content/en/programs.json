@@ -1,0 +1,76 @@
+{
+  "sections": [
+    {
+      "title": "MBSR Programs",
+      "items": [
+        {
+          "id": "mbsr-fall-2025",
+          "slug": "mbsr-8-week",
+          "title": "MBSR — 8-Week (Fall 2025)",
+          "subtitle": "Evidence-informed stress reduction",
+          "startDate": "2025-10-06",
+          "duration": "8 weeks + 1 retreat",
+          "location": "Toronto & Online",
+          "price": { "currency": "CAD", "tuition": 480 },
+          "image": "/images/programs/mbsr.jpg",
+          "href": "/en/programs/mbsr-8-week",
+          "ctaLabel": "View details"
+        }
+      ]
+    },
+    {
+      "title": "Mindful Book Club",
+      "items": [
+        {
+          "id": "bookclub-oct-2025",
+          "slug": "book-club",
+          "title": "Book Club — Oct 2025",
+          "subtitle": "Read & reflect together",
+          "startDate": "2025-10-15",
+          "duration": "4 sessions",
+          "location": "Online (Zoom)",
+          "price": { "currency": "CAD", "tuition": 80 },
+          "image": "/images/programs/bookclub.jpg",
+          "href": "/en/programs/book-club",
+          "ctaLabel": "Join"
+        }
+      ]
+    },
+    {
+      "title": "Retreats & Meetups",
+      "items": [
+        {
+          "id": "retreat-nov-2025",
+          "slug": "retreats",
+          "title": "Mindful Day Retreat — Nov 2025",
+          "subtitle": "A silent day of practice",
+          "startDate": "2025-11-16",
+          "duration": "1 day",
+          "location": "Toronto",
+          "price": { "currency": "CAD", "tuition": 120 },
+          "image": "/images/programs/retreat.jpg",
+          "href": "/en/programs/retreats",
+          "ctaLabel": "Reserve"
+        }
+      ]
+    },
+    {
+      "title": "Webinars",
+      "items": [
+        {
+          "id": "webinar-dec-2025",
+          "slug": "webinars",
+          "title": "Mindfulness at Work — Dec 2025",
+          "subtitle": "60-min practical session",
+          "startDate": "2025-12-05",
+          "duration": "60 minutes",
+          "location": "Online (Zoom)",
+          "price": { "currency": "CAD", "tuition": 0 },
+          "image": "/images/programs/webinar.jpg",
+          "href": "/en/programs/webinars",
+          "ctaLabel": "Register"
+        }
+      ]
+    }
+  ]
+}

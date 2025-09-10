@@ -1,0 +1,46 @@
+{
+  "title": "Mindful Book Club — Oct 2025",
+  "subtitle": "Read & reflect together",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "A gentle 4-session circle to read, pause, and reflect.",
+      "image": "/images/programs/bookclub.jpg",
+      "primaryCtaHref": "/en/booking",
+      "primaryCtaLabel": "Join",
+      "secondaryCtaHref": "/en/programs",
+      "secondaryCtaLabel": "All programs"
+    },
+    {
+      "type": "bullets",
+      "title": "What you’ll experience",
+      "items": [
+        "Weekly facilitated discussion",
+        "Short guided pauses",
+        "Practical home reflections"
+      ]
+    },
+    {
+      "type": "schedule",
+      "title": "Schedule",
+      "rows": [
+        { "label": "Start", "value": "2025-10-15" },
+        { "label": "Duration", "value": "4 sessions" },
+        { "label": "Location", "value": "Online (Zoom)" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 80,
+      "notes": "Sliding scale available."
+    },
+    {
+      "type": "faq",
+      "title": "FAQs",
+      "items": [
+        { "q": "Do I need to read every week?", "a": "We keep it gentle and flexible." }
+      ]
+    }
+  ]
+}

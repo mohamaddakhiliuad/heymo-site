@@ -1,17 +1,7 @@
-'use client'
+// app/page.tsx
+// Fallback redirect to default locale (works even if middleware is bypassed)
+import { redirect } from "next/navigation";
 
-import Hero from "@/components/home/Hero"
-import AboutPreview from "@/components/home/AboutPreview" 
-import GalleryPreview from "@/components/home/GalleryPreview"
-import LegacyPreview from "@/components/home/LegacyPreview"
-
-export default function Home() {
-  return (
-    <main>
-      <Hero />
-      <AboutPreview />
-      <GalleryPreview />
-      <LegacyPreview />
-    </main>
-  )
+export default function RootRedirect() {
+  redirect("/en");
 }

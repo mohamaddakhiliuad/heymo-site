@@ -1,0 +1,30 @@
+{
+  "title": "ذهن‌آگاهی در محیط کار — آذر ۱۴۰۴",
+  "subtitle": "۶۰ دقیقه نکته‌های کاربردی",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "وبیناری رایگان درباره کاربرد ذهن‌آگاهی در محیط کار.",
+      "image": "/images/programs/webinar.jpg",
+      "primaryCtaHref": "/fa/booking",
+      "primaryCtaLabel": "ثبت‌نام",
+      "secondaryCtaHref": "/fa/programs",
+      "secondaryCtaLabel": "همهٔ برنامه‌ها"
+    },
+    {
+      "type": "schedule",
+      "title": "جزئیات",
+      "rows": [
+        { "label": "تاریخ", "value": "2025-12-05" },
+        { "label": "مدت", "value": "۶۰ دقیقه" },
+        { "label": "محل", "value": "آنلاین (زوم)" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 0,
+      "notes": "این وبینار رایگان است ولی ثبت‌نام الزامی است."
+    }
+  ]
+}

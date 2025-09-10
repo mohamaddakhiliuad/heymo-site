@@ -1,14 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 @import "tailwindcss";
 
-/* ------------------------------
-   رنگ‌ها و متغیرهای پایه
------------------------------- */
+/* ─────────────────────────────────────────
+   THEME: SAGE CALM (RGB triplets)
+   - پایه‌ی رنگ‌ها برای استفاده در Tailwind (arbitrary values)
+   - همه‌چیز حول همین متغیرها می‌چرخد
+   ───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core tokens (RGB) */
+  --color-surface:        248 251 249;   /* #F8FBF9 */
+  --color-surface-muted:  230 240 236;   /* #E6F0EC */
+  --color-text:            35  48  43;   /* #23302B */
+  --color-text-muted:      96 114 108;   /* #60726C */
+  --color-accent:          46  94  78;   /* #2E5E4E  (brand) */
+  --color-on-accent:      255 255 255;   /* white */
+
+  /* Aliases used in prose & legacy styles */
+  --color-brown:  var(--color-accent);           /* برای کلاس‌های legacy مثل text-brown */
+  --color-border: #D6E3DD;                       /* مرزهای لطیف */
+  --color-cream:  rgb(var(--color-surface-muted)); /* پس‌زمینه‌ی لطیف (blockquote, chips) */
+
+  /* Semantic background/foreground (for body) */
+  --background: #ffffff;                         /* fallback light */
+  --foreground: #171717;                         /* fallback light text */
 }
 
+/* Tailwind v4 inline theme mapping (اختیاری/سازگار) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -16,6 +33,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark scheme (ساده و بی‌خطر؛ اگر خواستی بعداً توکن‌های تیره دقیق بدهیم) */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,51 +41,38 @@
   }
 }
 
-/* ------------------------------
-   بدنه اصلی سایت
------------------------------- */
+/* ─────────────────────────────────────────
+   Base
+   ───────────────────────────────────────── */
+html {
+  /* fallback برای کلاس‌های legacy مثل text-brown */
+  --color-brown: var(--color-accent);
+}
+
 body {
+  /* از semantic aliases استفاده می‌کنیم تا تعویض تم ساده بماند */
   background: var(--background);
   color: var(--foreground);
   font-family: 'Playfair Display', Helvetica, sans-serif;
 }
 
-/* ------------------------------
-   انیمیشن ورود و خروج
------------------------------- */
+/* ─────────────────────────────────────────
+   Animations
+   ───────────────────────────────────────── */
 @keyframes enter {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
-
 @keyframes leave {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(10px) scale(0.95);
-  }
+  from { opacity: 1; transform: translateY(0)    scale(1); }
+  to   { opacity: 0; transform: translateY(10px) scale(0.95); }
 }
+.animate-enter { animation: enter 0.3s ease-out forwards; }
+.animate-leave { animation: leave 0.2s ease-in forwards; }
 
-.animate-enter {
-  animation: enter 0.3s ease-out forwards;
-}
-
-.animate-leave {
-  animation: leave 0.2s ease-in forwards;
-}
-
-/* ------------------------------
-   گالری Masonry
------------------------------- */
+/* ─────────────────────────────────────────
+   Masonry Grid (بدون رنگ هاردکد)
+   ───────────────────────────────────────── */
 .my-masonry-grid {
   display: flex;
   margin-left: -24px; /* فاصله ستون‌ها */
@@ -81,9 +86,9 @@ body {
   margin-bottom: 28px;
 }
 
-/* افکت حاشیه یا سایه نرم برای کارت‌ها */
+/* کارت‌ها: از متغیر استفاده می‌کنیم + fallback */
 .my-masonry-grid_column > div > a {
-  background-color: white;
+  background-color: var(--masonry-card-bg, rgb(var(--color-surface)));
   border-radius: 16px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
@@ -92,37 +97,36 @@ body {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
-/* ------------------------------
-   استایل پیشرفته برای Markdown (.prose)
------------------------------- */
+/* ─────────────────────────────────────────
+   Prose (Markdown) – رنگ‌ها همه توکنی شدند
+   ───────────────────────────────────────── */
 
-/* تیترهای اصلی */
+/* تیترهای اصلی/فرعی */
 .prose h2 {
   font-family: "Playfair Display", serif;
-  color: #5b4636; /* brown */
+  color: rgb(var(--color-accent)); /* brand */
   font-weight: bold;
-  border-bottom: 1px solid #e6dcd3;
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 0.3rem;
   margin-top: 2.5rem;
 }
-
 .prose h3 {
   font-family: "Playfair Display", serif;
-  color: #5b4636;
+  color: rgb(var(--color-accent));
   font-weight: 600;
   margin-top: 1.8rem;
 }
 
 /* نقل‌قول‌ها */
 .prose blockquote {
-  background-color: #fef6ee; /* cream */
-  border-left: 4px solid #5b4636; /* brown */
+  background-color: var(--color-cream);            /* لطیف */
+  border-left: 4px solid rgb(var(--color-accent)); /* brand */
   padding: 1rem 1.5rem;
   font-style: italic;
   border-radius: 0.5rem;
 }
 
-/* تصاویر مقاله وسط‌چین و ظریف */
+/* تصاویر مقاله */
 .prose img {
   display: block;
   margin-left: auto;
@@ -139,25 +143,21 @@ body {
 .prose figure figcaption {
   text-align: center;
   font-size: 0.9rem;
-  color: #5b4636;
+  color: rgb(var(--color-accent));
   font-style: italic;
   margin-top: 0.5rem;
 }
 
 /* لینک‌ها */
 .prose a {
-  color: #5b4636; /* brown */
+  color: rgb(var(--color-accent));
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
-.prose a:hover {
-  opacity: 0.8;
-}
+.prose a:hover { opacity: 0.8; }
 
 /* موبایل: تصویر تمام‌عرض */
 @media (max-width: 768px) {
-  .prose img {
-    max-width: 100%;
-  }
+  .prose img { max-width: 100%; }
 }

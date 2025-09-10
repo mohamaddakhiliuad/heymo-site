@@ -1,0 +1,30 @@
+{
+  "title": "باشگاه کتاب ذهن‌آگاه — مهر ۱۴۰۴",
+  "subtitle": "خواندن و تأمل گروهی",
+  "blocks": [
+    {
+      "type": "hero",
+      "blurb": "یک حلقهٔ آرام ۴ جلسه‌ای برای خواندن، مکث و تأمل.",
+      "image": "/images/programs/bookclub.jpg",
+      "primaryCtaHref": "/fa/booking",
+      "primaryCtaLabel": "همراه می‌شوم",
+      "secondaryCtaHref": "/fa/programs",
+      "secondaryCtaLabel": "همهٔ برنامه‌ها"
+    },
+    {
+      "type": "schedule",
+      "title": "زمان‌بندی",
+      "rows": [
+        { "label": "شروع", "value": "2025-10-15" },
+        { "label": "مدت", "value": "۴ جلسه" },
+        { "label": "محل", "value": "آنلاین (زوم)" }
+      ]
+    },
+    {
+      "type": "pricing",
+      "currency": "CAD",
+      "tuition": 80,
+      "notes": "امکان پرداخت پلکانی موجود است."
+    }
+  ]
+}
