@@ -52,33 +52,8 @@ export default async function BlogPage({ params }: { params: Params }) {
         <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">
           {dict.blog.title}
         </h1>
-        {/* تست گرادیان */}
-      <div className="bg-hero-gradient text-white text-center py-10 mb-8">
-        <h1 className="text-4xl font-serif title-softshadow">
-          Gradient Test Block
-        </h1>
-        <p className="mt-2 text-white/80">If you see purple → plum → amber, theme is loaded ✅</p>
-      </div>
-
-      {/* تست دکمه‌ها */}
-      <div className="flex gap-4 justify-center mb-10">
-        <button className="px-6 py-3 rounded-xl bg-[rgb(var(--color-accent))] text-white shadow-btn-glow">
-          Primary Test
-        </button>
-        <button className="px-6 py-3 rounded-xl bg-[rgb(var(--color-accent))] text-white relative overflow-hidden shadow-btn-glow
-          after:absolute after:inset-0 after:bg-[linear-gradient(110deg,rgba(255,255,255,0)_0%,rgba(255,255,255,.6)_20%,rgba(255,255,255,0)_40%)] 
-          after:bg-[length:250%_100%] hover:after:animate-shine">
-          Shine Test
-        </button>
-      </div>
-
-        {/* تست کارت */}
-      <div className="max-w-md mx-auto p-6 rounded-2xl border border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))] shadow-card-glow mb-12">
-        <h2 className="text-xl font-semibold mb-2">Card Glow Test</h2>
-        <p className="text-[rgb(var(--color-text-muted))]">
-          If this card has a subtle amber glow shadow → glow is working ✅
-        </p>
-      </div>
+       
+  
         {dict.blog.subtitle && (
           <p className="mt-3 text-lg text-[rgb(var(--color-text-muted))]">
             {dict.blog.subtitle}
