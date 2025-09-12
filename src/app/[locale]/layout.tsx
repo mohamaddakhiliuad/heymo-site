@@ -1,4 +1,6 @@
 // src/app/[locale]/layout.tsx
+
+
 import "@/app/globals.css";
 import "@/styles/theme";
 import { getBaseUrl } from "@/lib/url";
@@ -24,7 +26,6 @@ export async function generateStaticParams() {
   return site.brand.locales.map((l) => ({ locale: l }));
 }
 
-// ✅ Next 15: await params
 export async function generateMetadata(
   props: { params: Promise<{ locale: "fa" | "en" }> }
 ): Promise<Metadata> {
@@ -35,7 +36,7 @@ export async function generateMetadata(
   return {
     title: { default: seo?.title ?? brand.name, template: `%s — ${brand.name}` },
     description: seo?.description,
-   metadataBase: base ? new URL(base) : undefined,
+    metadataBase: base ? new URL(base) : undefined,
     openGraph: {
       title: seo?.title ?? brand.name,
       description: seo?.description,
@@ -48,7 +49,6 @@ export async function generateMetadata(
   };
 }
 
-// ✅ Next 15: خودِ Layout هم باید params رو await کنه
 export default async function LocaleLayout(
   props: {
     children: React.ReactNode;
@@ -79,6 +79,7 @@ export default async function LocaleLayout(
           geistMono.variable,
           "antialiased",
           "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text))]",
+          locale === "fa" ? "font-fa" : "", // 👈 اضافه شد برای فونت فارسی
         ].join(" ")}
       >
         <I18nProvider value={{ locale, dict }}>
@@ -88,7 +89,7 @@ export default async function LocaleLayout(
               duration: 3000,
               style: {
                 background: "rgb(var(--color-surface))",
-                color: "rgb(var(--color-text))", // ← پرانتز اضافی حذف شد
+                color: "rgb(var(--color-text))",
                 border: "1px solid var(--color-border)",
               },
             }}

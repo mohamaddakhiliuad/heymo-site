@@ -111,3 +111,33 @@ export const layout = {
    <div className={cn(card.base, card.padded, card.hover)}>...</div>
    <div className={cn(layout.container, layout.section)}>...</div>
    ─────────────────────────────── */
+export const prose = {
+  base: "prose max-w-none prose-headings:font-semibold prose-p:leading-7",
+};
+
+export const form = {
+  grid: "grid grid-cols-1 md:grid-cols-2 gap-5",
+  field: "flex flex-col gap-1",
+  label: "text-sm font-medium text-[rgb(var(--color-text))]",
+  input:
+    "h-11 px-3 rounded-2xl bg-[rgb(var(--color-surface))] " +
+    "border border-[var(--color-border)] text-[rgb(var(--color-text))] " +
+    "placeholder:text-[rgb(var(--color-text))]/50 focus:outline-none " +
+    "focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(var(--color-accent))]",
+  textarea:
+    "min-h-[140px] p-3 rounded-2xl bg-[rgb(var(--color-surface))] " +
+    "border border-[var(--color-border)] text-[rgb(var(--color-text))] " +
+    "placeholder:text-[rgb(var(--color-text))]/50 focus:outline-none " +
+    "focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(var(--color-accent))]",
+  error: "text-sm text-red-600 mt-1", // می‌تونی توکن رنگ خطر هم اضافه کنی
+  agree: "flex items-start gap-2 text-sm text-[rgb(var(--color-text))]",
+  card:
+    "p-5 rounded-2xl border border-[var(--color-border)] " +
+    "bg-[rgb(var(--color-surface))] shadow-sm",
+};
+export const actions = {
+  row: "mt-4 flex flex-wrap gap-3 items-center",
+  link:
+    "inline-flex items-center underline underline-offset-4 " +
+    "text-[rgb(var(--color-text))]/80 hover:text-[rgb(var(--color-text))]",
+};

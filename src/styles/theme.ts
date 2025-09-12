@@ -1,84 +1,90 @@
 // src/styles/theme.ts
 /**
- * Purpose:
- * - Central design tokens (colors/typography/spacing/radius/shadow)
- * - Works with Tailwind + CSS variables set in CSS (globals/theme) and/or tailwind.config.js
- * - Backward-compatible with your previous API (typography.heading/body/small, etc.)
- *
- * Notes:
- * - Colors are exposed in two ways:
- *   1) hex: raw hex for programmatic use (charts, inline styles if ever needed)
- *   2) token: CSS-variable based strings to be used with Tailwind arbitrary values (e.g. text-[rgb(var(--color-text))])
- * - Typography exports class recipes that you can drop on elements directly.
- * - Use `cx()` to compose classes conditionally (tiny clsx).
+ * Noura Theme (Aggressive rewrite)
+ * - همه‌ی استایل‌های موجود (button.primary, card.base, typography.heading, …)
+ *   به تم جدید نورا تغییر داده شدند.
+ * - گرادیان بنفش → آلویی → کهربایی برای هدر/فوتر
+ * - متن سفید روی گرادیان
+ * - کارت‌ها روی surface روشن (برای readability) + glow
+ * - CTAها براق (shine)
  */
 
-// ---------- Tiny class combiner (no dependency) ----------
 export const cx = (...args: Array<string | false | null | undefined>) =>
   args.filter(Boolean).join(" ");
 
-// ---------- Color Tokens (SAGE CALM THEME) ----------
-/** Raw hex palette (stable source of truth for brand) */
+// ---------- Color Tokens ----------
 export const colorsHex = {
-  primary:   "#2E5E4E", // brand (sage deep)
-  background:"#F8FBF9", // surface (page background)
-  accent:    "#E6F0EC", // surface-muted (subtle fills)
-  text:      "#23302B",
-  mutedText: "#60726C", // softened text
-  border:    "#D6E3DD",
-  highlight: "#86BDAA", // supportive accent (chips/labels/soft CTAs)
+   // پایه
+  primary:   "#142C44",  // هم‌راستا با accent (می‌تونی جدا نگه داری)
+  background:"#FCFAF6",  // surface
+  accent:    "#142C44",  // Navy برند (هدینگ/لینک/Primary)
+  text:      "#142436",  // متن اصلی
+  mutedText: "#606C76",  // متن ثانویه
+  border:    "#D6DADE",  // بُردر سردِ ملایم
+  highlight: "#B4CDD7",  // هایلایت خنثی
+
+  // گرادیان هدر/فوتر (ناوی‌های ملایم)
+  heroFrom:  "#0A1A2C",
+  heroMid:   "#163052",
+  heroTo:    "#22426C",
+
+  // Glowها
+  glowAmber: "#F2645A",  // کورال گرم برای افکت
+  glowSage:  "#B4CDD7",
+
+  // (اختیاری) CTA جدا از accent؛ اگر نخواستی، همان accent را بگذار
+  cta:       "#F2645A",
 } as const;
 
-/**
- * CSS-variable driven tokens (paired with CSS variables)
- * Use with Tailwind's arbitrary values, e.g.:
- *   className="text-[rgb(var(--color-text))] bg-[rgb(var(--color-surface))]"
- */
 export const colors = {
   surface:       "rgb(var(--color-surface))",
   surfaceMuted:  "rgb(var(--color-surface-muted))",
   text:          "rgb(var(--color-text))",
   textMuted:     "rgb(var(--color-text-muted))",
-  accent:        "rgb(var(--color-accent))",      // == BRAND
+  accent:        "rgb(var(--color-accent))",
   onAccent:      "rgb(var(--color-on-accent))",
 
-  // Back-compat names mapped to variables/hex:
-  primary:       "rgb(var(--color-accent))",      // maps to brand (sage deep)
+  // aliasهای کاربردی
+  primary:       "rgb(var(--color-accent))",
   background:    "rgb(var(--color-surface))",
   accentBg:      "rgb(var(--color-surface-muted))",
-  border:        colorsHex.border,                // neutral subtle line
-  highlight:     colorsHex.highlight,             // supportive accent
+  border:        "rgb(var(--color-border))",
+  highlight:     colorsHex.highlight,
+
+  heroFrom:      "rgb(var(--hero-from))",
+  heroMid:       "rgb(var(--hero-mid))",
+  heroTo:        "rgb(var(--hero-to))",
+  glowAmber:     "rgb(var(--glow-amber))",
+  glowSage:      "rgb(var(--glow-sage))",
 } as const;
 
-// ---------- Typography Recipes (Tailwind classes) ----------
-/**
- * Headings: serif + brand color
- * Body: system sans + tokenized text color
- * Small: smaller size + muted text
- *
- * NOTE: kept `text-brown` for backward-compat; also add tokenized color to be safe.
- */
+// ---------- Typography ----------
 export const typography = {
   heading: cx(
     "font-serif",
     "text-[rgb(var(--color-accent))]",
-    "text-brown" // legacy alias; map 'brown' => brand in tailwind.config if needed
+    "text-brown"
+  ),
+  headingOnHero: cx(
+    "font-serif",
+    "text-white",
+    "title-softshadow"
   ),
   body: cx(
-    "text-sm",
+    "text-base",
     "antialiased",
     "text-[rgb(var(--color-text))]"
   ),
   small: cx(
-    "text-xs",
+    "text-sm",
     "text-[rgb(var(--color-text-muted))]"
   ),
 } as const;
 
-// ---------- Spacing (class recipes) ----------
+// ---------- Spacing ----------
 export const spacing = {
   sectionPadding: cx("px-6", "py-16"),
-  cardPadding: "p-4",
+  cardPadding: "p-6",
   sectionPaddingLg: cx("px-6", "py-24"),
 } as const;
 
@@ -94,54 +100,85 @@ export const shadow = {
   base: "shadow-md",
   hover: "hover:shadow-lg transition-shadow duration-200",
   subtle: "shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]",
+  cardGlow:
+    "shadow-[0_0_0_1px_rgba(var(--glow-amber),.22),0_24px_40px_-18px_rgba(0,0,0,.25)]",
+  btnGlow: "shadow-[0_0_0_2px_rgba(var(--glow-amber),.45)]",
+  focusRing:
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-accent))] focus-visible:ring-offset-2 ring-offset-[rgb(var(--color-surface))]",
 } as const;
 
 // ---------- Component Recipes ----------
 export const layout = {
   container: cx("container", "mx-auto"),
   section: cx("container", "mx-auto", spacing.sectionPadding),
+  heroBackground: "relative overflow-hidden bg-hero-gradient",
+  footerBackground: "relative overflow-hidden bg-hero-gradient footer-glow",
 };
 
 export const card = {
   base: cx(
     "bg-[rgb(var(--color-surface))]",
-    radius.base,
-    shadow.base,
+    radius.lg,
+    shadow.cardGlow,
     spacing.cardPadding,
     "border",
-    "border-[color:var(--tw-prose-hr,#e5e7eb)]"
+    "border-[rgb(var(--color-border))]",
+    "transition"
   ),
   hoverable: cx(
     "bg-[rgb(var(--color-surface))]",
-    radius.base,
-    shadow.base,
-    "transition",
-    "hover:shadow-lg",
+    radius.lg,
+    shadow.cardGlow,
+    "hover:-translate-y-0.5 will-change-transform",
     "border",
-    "border-[color:var(--tw-prose-hr,#e5e7eb)]"
+    "border-[rgb(var(--color-border))]",
+    "transition"
   ),
 };
 
 export const button = {
   primary: cx(
     "inline-flex items-center justify-center",
-    "px-4 py-2",
+    "px-5 py-3",
     radius.button,
     "bg-[rgb(var(--color-accent))]",
     "text-[rgb(var(--color-on-accent))]",
-    "hover:brightness-95",
-    "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(var(--color-accent))]"
+    "hover:brightness-105",
+    shadow.focusRing,
+    shadow.btnGlow
   ),
   outline: cx(
-    "inline-flex items-center justify-center",
-    "px-4 py-2",
+      "inline-flex items-center justify-center",
+    "px-5 py-3",
     radius.button,
     "border",
-    "border-[rgb(var(--color-accent))]",
-    "text-[rgb(var(--color-accent))]",
+    "border-[rgb(var(--color-border))]",
+    "text-[rgb(var(--color-text))]",
     "bg-transparent",
     "hover:bg-[rgb(var(--color-surface-muted))]",
-    "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(var(--color-accent))]"
+    shadow.focusRing
+  ),
+  shine: cx(
+    "inline-flex items-center justify-center",
+    "px-6 py-3",
+    radius.button,
+    "relative overflow-hidden",
+    "bg-[rgb(var(--color-accent))] text-white",
+    "after:absolute after:inset-0 after:bg-[linear-gradient(110deg,rgba(255,255,255,0)_0%,rgba(255,255,255,.6)_20%,rgba(255,255,255,0)_40%)] after:bg-[length:250%_100%] hover:after:animate-shine",
+    shadow.btnGlow,
+    shadow.focusRing
+  ),
+  // اگر خواستی CTA مرجانی/کورال جدا از accent داشته باشیم:
+  cta: cx(
+    "inline-flex items-center justify-center",
+    "px-6 py-3",
+    radius.button,
+    "relative overflow-hidden",
+    // از متغیر CSS استفاده کن تا بعداً از globals کنترل شود
+    "bg-[rgb(var(--color-cta, var(--color-accent)))] text-white",
+    "after:absolute after:inset-0 after:bg-[linear-gradient(110deg,rgba(255,255,255,0)_0%,rgba(255,255,255,.6)_20%,rgba(255,255,255,0)_40%)] after:bg-[length:250%_100%] hover:after:animate-shine",
+    shadow.btnGlow,
+    shadow.focusRing
   ),
 };
 

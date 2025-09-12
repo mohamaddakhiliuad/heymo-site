@@ -8,6 +8,73 @@ export const DEFAULT_LOCALE: Locale = "en";
 export type NavItem = { label: string; href: string; external?: boolean };
 export type CTA = { label: string; href: string; external?: boolean };
 
+// src/config/site.ts
+import { settings } from "./settings";
+
+export const site = {
+  name: "Fatemeh Mindfulness",
+  description: "Mindfulness & MBSR coaching — EN/FA",
+  social: {
+    instagram: "https://instagram.com/…",
+    linkedin: "https://linkedin.com/in/…",
+    youtube: "https://youtube.com/@…",
+  },
+  social: {
+    instagram: "https://instagram.com/…",
+    linkedin: "https://linkedin.com/in/…",
+    whatsapp: "https://wa.me/1XXXXXXXXXX", // اختیاری
+  },
+  contact: {
+    emailTo: "inbox@yourdomain.com",   // گیرنده
+    emailCc: "",                       // اختیاری
+    webhook: "",                       // اگر به‌جای ایمیل، به Notion/Zap/Webhook بزنی
+  },
+  booking: {
+    discovery: {
+      fa: "https://cal.com/your-handle/20min?lang=fa",
+      en: "https://cal.com/your-handle/20min?lang=en",
+    },
+    session: {
+      fa: "https://cal.com/your-handle/60min?lang=fa",
+      en: "https://cal.com/your-handle/60min?lang=en",
+    },
+    mbsr: {
+      fa: "https://buy.stripe.com/...fa",
+      en: "https://buy.stripe.com/...en",
+    },
+  },
+
+  booking: {
+    // مصرف مستقیم در /[locale]/booking
+    cal: {
+      free: "https://cal.com/yourname/free-discovery",
+      coaching: "https://cal.com/yourname/coaching-60",
+    },
+    stripe: {
+      coaching: "https://buy.stripe.com/…",
+      mbsr: "https://buy.stripe.com/…",
+    },
+  },
+  seo: {
+    baseUrl: settings.baseUrl,
+    twitterHandle: "@yourhandle",
+  },
+  nav: {
+    header: [
+      { key: "home", href: "/" },
+      { key: "services", href: "/services" },
+      { key: "programs", href: "/programs" },
+      { key: "blog", href: "/blog" },
+      { key: "booking", href: "/booking" },
+    ],
+    footer: [
+      { key: "privacy", href: "/privacy" },
+      { key: "terms", href: "/terms" },
+      { key: "disclaimer", href: "/disclaimer" },
+    ],
+  },
+};
+
 export interface BrandConfig {
   name: string;
   tagline?: string;
@@ -72,8 +139,9 @@ const siteConfig = {
   },
 
   header: {
+    variant: "accent",
+    translucent:false,
     sticky: true,
-    translucent: true,
     showLanguageSwitch: true,
     nav: {
       fa: [
@@ -102,7 +170,7 @@ const siteConfig = {
   },
 
   footer: {
-    variant: "surface", // یا "accent" اگر فوتر تیره با رنگ برند می‌خوای
+    variant: "accent", // یا "accent" اگر فوتر تیره با رنگ برند می‌خوای
     columns: {
       fa: [
         {
@@ -162,21 +230,6 @@ const siteConfig = {
       en: `© ${new Date().getFullYear()} Fatemeh — Mindfulness Coaching`,
     },
     newsletter: { enable: false },
-  },
-
-  booking: {
-    discovery: {
-      fa: "https://cal.com/your-handle/20min?lang=fa",
-      en: "https://cal.com/your-handle/20min?lang=en",
-    },
-    session: {
-      fa: "https://cal.com/your-handle/60min?lang=fa",
-      en: "https://cal.com/your-handle/60min?lang=en",
-    },
-    mbsr: {
-      fa: "https://buy.stripe.com/...fa",
-      en: "https://buy.stripe.com/...en",
-    },
   },
 
   seo: {

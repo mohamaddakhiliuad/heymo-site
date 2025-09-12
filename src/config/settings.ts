@@ -18,3 +18,17 @@ export const LIGHTBOX_CONFIG = {
   theme: 'dark',
 }
 export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
+
+// src/config/settings.ts
+export const settings = {
+  baseUrl: "https://fatemehmindful.com", // به دامین واقعی‌ت تغییر بده
+  locales: ["en", "fa"] as const,
+  defaultLocale: "en" as const,
+  rtlLocales: new Set(["fa"]),
+  brand: {
+    name: "Fatemeh Mindfulness",
+    theme: "Sage Calm",
+  },
+};
+export type Locale = (typeof settings.locales)[number];
+export const isRTL = (locale: Locale) => settings.rtlLocales.has(locale);
