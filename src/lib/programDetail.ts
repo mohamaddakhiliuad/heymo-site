@@ -1,4 +1,4 @@
-import type { Locale } from "@/src/config/site";
+import type { Locale } from "@/config/site";
 
 export type Block =
   | { type: "hero"; blurb?: string; image?: string;

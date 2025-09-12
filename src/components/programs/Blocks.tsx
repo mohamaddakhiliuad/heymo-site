@@ -45,7 +45,7 @@ export default async function Blocks({
                   </div>
                   <div>
                     {b.image ? (
-                      <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-[var(--color-border)]">
+                     <div className="relative aspect-[9/16] rounded-xl overflow-hidden border border-[rgb(var(--color-border))]">
                         <Image src={b.image} alt="" fill className="object-cover" />
                       </div>
                     ) : (
