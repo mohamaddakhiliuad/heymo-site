@@ -31,28 +31,28 @@ export const site = {
   },
   booking: {
     discovery: {
-      fa: "https://cal.com/your-handle/20min?lang=fa",
-      en: "https://cal.com/your-handle/20min?lang=en",
+      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
+      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
     },
     session: {
-      fa: "https://cal.com/your-handle/60min?lang=fa",
-      en: "https://cal.com/your-handle/60min?lang=en",
+      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
+      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
     },
     mbsr: {
-      fa: "https://buy.stripe.com/...fa",
-      en: "https://buy.stripe.com/...en",
+      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
+      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
     },
   },
 
   booking: {
     // مصرف مستقیم در /[locale]/booking
     cal: {
-      free: "https://cal.com/yourname/free-discovery",
-      coaching: "https://cal.com/yourname/coaching-60",
+      free: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
+      coaching: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
     },
     stripe: {
-      coaching: "https://buy.stripe.com/…",
-      mbsr: "https://buy.stripe.com/…",
+      coaching: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
+      mbsr: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
     },
   },
   seo: {
@@ -145,13 +145,13 @@ const siteConfig = {
     showLanguageSwitch: true,
     nav: {
       fa: [
-        { label: "خدمات",  href: "/fa/services" },
+      
         { label: "دوره‌ها", href: "/fa/programs" },
         { label: "درباره من", href: "/fa/about" },
         { label: "بلاگ",    href: "/fa/blog" },
       ],
       en: [
-        { label: "Services", href: "/en/services" },
+       
         { label: "Programs", href: "/en/programs" },
         { label: "About",    href: "/en/about" },
         { label: "Blog",     href: "/en/blog" },
@@ -193,7 +193,7 @@ const siteConfig = {
         {
           title: "Quick",
           links: [
-            { label: "Services", href: "/en/services" },
+       
             { label: "Programs", href: "/en/programs" },
             { label: "Booking",  href: "/en/booking" },
           ],
@@ -208,10 +208,10 @@ const siteConfig = {
       ],
     },
     socials: [
-      { label: "Instagram", href: "https://instagram.com/...", external: true },
-      { label: "LinkedIn",  href: "https://linkedin.com/in/...", external: true },
-      { label: "YouTube",   href: "https://youtube.com/...",  external: true },
-      { label: "Pinterest", href: "https://pinterest.com/...", external: true },
+      { label: "Instagram", href: "https://instagram.com/changeclubmag", external: true },
+      { label: "LinkedIn",  href: "https://linkedin.com/in/fatemeh-taghizadehkhorassani", external: true },
+      { label: "YouTube",   href: "https://youtube.com/changeclubmag",  external: true },
+      { label: "Pinterest", href: "https://t.me/mindfulnesslifecoach", external: true },
     ],
     legal: {
       fa: [
