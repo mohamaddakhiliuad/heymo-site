@@ -4,8 +4,8 @@
 import "@/app/globals.css";
 import "@/styles/theme";
 import { getBaseUrl } from "@/lib/url";
-import type { Metadata, Viewport } from "next";
 
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
@@ -17,7 +17,6 @@ import Footer from "@/components/shared/Footer";
 
 import I18nProvider from "@/i18n/I18nProvider";
 import { getDictionary } from "@/i18n";
-import SiteChrome from "@/components/layout/SiteChrome"; 
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -26,11 +25,6 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export async function generateStaticParams() {
   return site.brand.locales.map((l) => ({ locale: l }));
 }
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover", // برای Safe Area در iOS
-};
 
 export async function generateMetadata(
   props: { params: Promise<{ locale: "fa" | "en" }> }
@@ -54,6 +48,7 @@ export async function generateMetadata(
       : undefined,
   };
 }
+
 export default async function LocaleLayout(
   props: {
     children: React.ReactNode;
@@ -84,21 +79,10 @@ export default async function LocaleLayout(
           geistMono.variable,
           "antialiased",
           "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text))]",
-          locale === "fa" ? "font-fa" : "",
+          locale === "fa" ? "font-fa" : "", // 👈 اضافه شد برای فونت فارسی
         ].join(" ")}
       >
         <I18nProvider value={{ locale, dict }}>
-          {/* هدر/فوتر فقط وقتی می‌آیند که سگمنت اول بعد از locale ≠ 'u' باشد */}
-          <SiteChrome>
-            <Header />
-          </SiteChrome>
-
-          <main>{props.children}</main>
-
-          <SiteChrome>
-            <Footer />
-          </SiteChrome>
-
           <Toaster
             position="top-right"
             toastOptions={{
@@ -110,6 +94,9 @@ export default async function LocaleLayout(
               },
             }}
           />
+          <Header />
+          <main>{props.children}</main>
+          <Footer />
         </I18nProvider>
 
         <Analytics />
