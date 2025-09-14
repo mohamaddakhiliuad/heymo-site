@@ -4,8 +4,8 @@
 import "@/app/globals.css";
 import "@/styles/theme";
 import { getBaseUrl } from "@/lib/url";
+import type { Metadata, Viewport } from "next";
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
@@ -26,6 +26,11 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export async function generateStaticParams() {
   return site.brand.locales.map((l) => ({ locale: l }));
 }
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover", // برای Safe Area در iOS
+};
 
 export async function generateMetadata(
   props: { params: Promise<{ locale: "fa" | "en" }> }
