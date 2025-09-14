@@ -1,0 +1,58 @@
+{
+  "slug": "mohammad-001",
+  "localeDefault": "en",
+  "name": "Mohammad Dakhilitarghi",
+  "title": "Digital Marketer",
+  "name_i18n": {
+    "en": "Mohammad Dakhilitarghi",
+    "fa": "محمد دخیلی "
+  },
+  "title_i18n": {
+    "en": "Digital Marketer",
+    "fa": "متخصص بازاریابی دیجیتال"
+  },
+  "avatarUrl": "/clients/mohammad-001.jpg",
+  "bio": {
+    "en": "I’m a digital strategist and web developer focused on helping businesses grow with clarity and modern tools.  \nFrom **Shopify storefronts and custom websites** to **SEO strategies and NFC smart cards**, I design solutions that connect people and businesses in simple, meaningful ways.  \n\nWith over 15 years of experience in **software, digital marketing, and consulting**, I believe technology should serve people — not overwhelm them. My approach is always practical, empathetic, and growth-driven.  \n\nIf one tap of an NFC card keeps your business alive in someone’s pocket, then my mission is complete.  ",
+    "fa": "من یک استراتژیست دیجیتال و توسعه‌دهنده وب هستم که تمرکزم بر کمک به رشد کسب‌وکارها با وضوح و ابزارهای مدرن است.  \nاز **فروشگاه‌های شاپیفای و وب‌سایت‌های اختصاصی** تا **استراتژی‌های سئو و کارت‌های هوشمند NFC**، راه‌حل‌هایی طراحی می‌کنم که ارتباط میان افراد و کسب‌وکارها را ساده و ماندگار می‌کند.  \n\nبا بیش از ۱۵ سال تجربه در **نرم‌افزار، بازاریابی دیجیتال و مشاوره**، باور دارم فناوری باید در خدمت انسان باشد، نه اینکه او را خسته کند. رویکرد من همیشه کاربردی، همراه با همدلی و متمرکز بر رشد است.  \n\nاگر یک لمس ساده روی کارت NFC بتواند کسب‌وکار شما را برای همیشه در جیب مشتری زنده نگه دارد، مأموریت من انجام شده است.  "
+  },
+  "links": [
+    {
+      "type": "website",
+      "url": "https://heymo.ca"
+    },
+    {
+      "type": "linkedin",
+      "url": "https://linkedin.com/in/mohamad-dakhili"
+    },
+    {
+      "type": "email",
+      "url": "mailto:mohamaddakhiliuad@gmail.com"
+    },
+    {
+      "type": "phone",
+      "url": "tel:+16474820073"
+    },
+    {
+      "type": "telegram",
+      "url": "https://t.me/changeclubmag"
+    },
+    {
+      "type": "instagram",
+      "url": "https://www.instagram.com/changeclubmag/"
+    }
+  ],
+  "contact": {
+    "email": "mohamaddakhiliuad@gmail.com",
+    "phone": "+16474820073",
+    "whatsapp": "+16474820073",
+    "address": "Toronto, Canada"
+  },
+  "cta": {
+    "url": "/api/u/mohammad-001/vcard",
+    "label_en": "Add to Contacts",
+    "label_fa": "افزودن به مخاطبین"
+  },
+  "indexable": false,
+  "updatedAt": "2025-09-14T08:10:39.242Z"
+}

@@ -1,228 +1,85 @@
-// src/app/[locale]/page.tsx
 import Link from "next/link";
-import Section from "@/components/ui/Section";
-import { layout, button } from "@/styles/formStyles";
-import { site, type Locale } from "@/config/site";
-import ProgramCard from "@/components/programs/ProgramCard";
+import Image from "next/image";
+import { layout, card, button, cn } from "@/styles/formStyles";
+import type { Metadata } from "next";
 
-// داده‌ها
-import { getPrograms, type ProgramItem } from "@/lib/programs";
+type Params = { params: { locale: "en" | "fa" } };
 
-// ─────────────────────────────────────────
-// SEO (اختیاری)
-export const dynamic = "force-static";
+export const metadata: Metadata = {
+  title: "heymo — Shopify, Headless Web & NFC Profiles",
+  description: "Clean tech + clear strategy. Shopify storefronts, NFC smart profiles, content & SEO.",
+};
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: Locale };
-}) {
-  const { locale } = params;
-  const title = locale === "fa" ? "خانه" : "Home";
-  return { title: `${title} · ${site.name}` };
+async function getProjects(locale: "en" | "fa") {
+  const data = await import(`@/content/${locale}/projects.json`);
+  return data.default.slice(0, 3);
 }
-// ─────────────────────────────────────────
 
-export default async function HomePage({
-  params,
-}: {
-  params: { locale: Locale };
-}) {
-  const locale = params.locale;
-  const isFA = locale === "fa";
-
-  // Featured Programs از سکشن upcoming (سه مورد)
-  let featuredPrograms: ProgramItem[] = [];
-  try {
-    const data = await getPrograms(locale); // { sections: [...] }
-    const upcoming =
-      data.sections?.find(
-        (s) => s.id === "upcoming" || s.title?.toLowerCase().includes("upcoming")
-      ) ?? data.sections?.[0];
-    featuredPrograms = (upcoming?.items ?? []).slice(0, 3);
-  } catch {
-    featuredPrograms = [];
-  }
-
-  // Featured Blog (اختیاری — اگر lib/content هست)
-  let featuredPosts: any[] = [];
-  try {
-    const mod = await import("@/lib/content"); // باید getAllPosts یا getPosts صادر کند
-    const getAllPosts = (mod as any).getAllPosts || (mod as any).getPosts;
-    if (getAllPosts) {
-      featuredPosts = (getAllPosts(locale) || []).slice(0, 3);
-    }
-  } catch {
-    featuredPosts = [];
-  }
+export default async function HomePage({ params }: Params) {
+  const { locale } = params;
+  const rtl = locale === "fa";
+  const projects = await getProjects(locale);
 
   return (
-    <main dir={isFA ? "rtl" : "ltr"}>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-hero-gradient">
-        <div className={`${layout.container} py-16 md:py-24`}>
-          <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-wide text-white/80">
-              {isFA ? "مایندفولنس · کوچینگ" : "Mindfulness · Coaching"}
-            </p>
-            <h1 className="mt-3 font-serif text-4xl md:text-5xl text-white title-softshadow">
-              {isFA ? "نفس بکش. مکث کن. تازه شو." : "Pause. Breathe. Renew."}
-            </h1>
-            <p className="mt-4 text-white/90 leading-relaxed">
-              {isFA
-                ? "برنامه‌ها و کوچینگی که کمک می‌کند آگاه‌تر زندگی کنی، استرس را کاهش دهی و تغییرات معنادار بسازی."
-                : "Programs and coaching to help you live mindfully, reduce stress, and create meaningful change."}
-            </p>
-
-            <div className="mt-6 flex gap-3">
-              <Link href={`/${locale}/programs`} className={button.primary}>
-                {isFA ? "دیدن دوره‌ها" : "Explore Programs"}
-              </Link>
-              <Link
-                href={site.booking.cal.free}
-                className="inline-flex items-center justify-center px-5 py-3 rounded-full border border-[rgb(var(--color-border))] text-white hover:bg-white/10"
-              >
-                {isFA ? "رزرو جلسه رایگان" : "Book a Free Call"}
-              </Link>
-            </div>
+    <main dir={rtl ? "rtl" : "ltr"}>
+      {/* Hero */}
+     <section className={cn(layout.container, "rounded-2xl mt-6 px-6 py-16 md:py-24 bg-[rgb(var(--color-surface-muted))]")}>
+  <div className="text-[rgb(var(--color-accent))]">
+          <h1 className="text-3xl md:text-5xl font-serif title-softshadow leading-tight">
+            Simplifying Growth with Clean Tech & Clear Strategy
+          </h1>
+          <p className="mt-4 text-cyan-500 text-lg">
+            Shopify & Headless storefronts, NFC smart profiles, and data-driven marketing — built fast, with focus.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href={`/${locale}/contact`} className={button.primary}>Get Started</Link>
+            <Link href={`/${locale}/projects`} className={button.outline}>{rtl ? "مشاهده پروژه‌ها" : "View Projects"}</Link>
           </div>
         </div>
       </section>
 
-      {/* FEATURED PROGRAMS */}
-      <Section>
-        <div className={layout.container}>
-          <header className="mb-6 md:mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl text-[rgb(var(--color-accent))]">
-              {isFA ? "دوره‌های منتخب" : "Featured Programs"}
-            </h2>
-            <p className="text-[rgb(var(--color-text))]/75 mt-1">
-              {isFA ? "مسیر مناسب خودت را انتخاب کن." : "Choose the path that fits you."}
-            </p>
-          </header>
-
-          {featuredPrograms.length ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-              {featuredPrograms.map((p) => (
-                <ProgramCard key={p.id || p.slug} item={p} locale={locale} />
-              ))}
+      {/* Value props */}
+      <section className={cn(layout.container, "py-12 md:py-16")}>
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            { t: "Websites that convert", s: "Clean UX, fast load, SEO-ready" },
+            { t: "Shopify that sells", s: "Theme or Headless, speed + CRO" },
+            { t: "NFC Smart Profiles", s: "Tap → profile, Add-to-Contacts, QR" },
+          ].map((v, i) => (
+            <div key={i} className={cn(card.base, card.padded, card.hover)}>
+              <h3 className="text-lg font-semibold">{rtl ? "مزیت" : v.t}</h3>
+              <p className="text-text-muted mt-1">{rtl ? "سریع، تمیز، آماده رشد" : v.s}</p>
             </div>
-          ) : (
-            <div className="rounded-2xl border border-[rgb(var(--color-border))] p-6 text-[rgb(var(--color-text))]/75">
-              {isFA ? "به‌زودی دوره‌ها افزوده می‌شود." : "Programs coming soon."}
-            </div>
-          )}
+          ))}
+        </div>
+      </section>
 
-          <div className="mt-6">
-            <Link href={`/${locale}/programs`} className="underline underline-offset-4">
-              {isFA ? "همه‌ی دوره‌ها" : "See all programs"}
+      {/* Featured projects */}
+      <section className={cn(layout.container, "pb-16")}>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl md:text-3xl font-semibold">{rtl ? "پروژه‌های منتخب" : "Selected Projects"}</h2>
+          <Link href={`/${locale}/projects`} className="underline underline-offset-4">{rtl ? "همه پروژه‌ها" : "See all"}</Link>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {projects.map((p) => (
+            <Link key={p.slug} href={p.url || `/${locale}/projects`} className="block group">
+              <article className={cn(card.base, "p-0 overflow-hidden")}>
+                <div className="relative aspect-[4/3]">
+                  <Image src={p.image} alt={p.title} fill className="object-cover" sizes="(min-width: 768px) 33vw, 100vw" />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold">{p.title}</h3>
+                  <p className="text-sm text-text-muted mt-1">{p.summary}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {p.highlights.slice(0, 3).map((h: string) => (
+                      <span key={h} className="px-2 py-1 rounded-full text-xs bg-surface-muted">{h}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
             </Link>
-          </div>
-        </div>
-      </Section>
-
-      {/* ABOUT TEASER */}
-      <Section>
-        <div
-          className={`${layout.container} grid grid-cols-1 md:grid-cols-2 gap-10 items-center`}
-        >
-          <div>
-            <h3 className="font-serif text-2xl text-[rgb(var(--color-accent))]">
-              {isFA ? "سلام، من فاطمه‌ام" : "Hi, I’m Fatemeh"}
-            </h3>
-            <p className="mt-3 text-[rgb(var(--color-text))]/80">
-              {isFA
-                ? "مربی زندگی مایندفول با بیش از ۵ سال تجربه در همراهی افراد برای پرورش خودآگاهی و کاهش استرس."
-                : "A mindfulness life coach with 5+ years helping people cultivate awareness and reduce stress."}
-            </p>
-            <div className="mt-4">
-              <Link href={`/${locale}/about`} className="underline underline-offset-4">
-                {isFA ? "بیشتر درباره من" : "Learn more about me"}
-              </Link>
-            </div>
-          </div>
-          <div className="flex justify-center md:justify-end">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/about/fatemeh-portrait.jpg"
-              alt="Fatemeh portrait"
-              className="max-h-[420px] w-auto rounded-2xl border-2 border-[rgb(var(--color-border))] shadow-card-glow object-cover"
-            />
-          </div>
-        </div>
-      </Section>
-
-      {/* FEATURED BLOG (اختیاری) */}
-      <Section>
-        <div className={layout.container}>
-          <header className="mb-6 md:mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl text-[rgb(var(--color-accent))]">
-              {isFA ? "از بلاگ" : "From the Blog"}
-            </h2>
-          </header>
-
-          {featuredPosts.length ? (
-            // اگر BlogCard داری همسو با بلاگ استفاده کن
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-              {featuredPosts.map((post) => {
-                // اگر BlogCard نداری، لینک ساده نشون بده
-                return (
-                  <article
-                    key={post.slug}
-                    className="rounded-2xl border border-[rgb(var(--color-border))] p-5 shadow-card-glow"
-                  >
-                    <h3 className="font-serif text-xl text-[rgb(var(--color-accent))]">
-                      <Link href={`/${locale}/blog/${post.slug}`}>{post.title}</Link>
-                    </h3>
-                    {post.excerpt && (
-                      <p className="mt-2 text-[rgb(var(--color-text))]/80 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    )}
-                    <div className="mt-3">
-                      <Link
-                        className="underline underline-offset-4"
-                        href={`/${locale}/blog/${post.slug}`}
-                      >
-                        {isFA ? "ادامه مطلب" : "Read more"}
-                      </Link>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-[rgb(var(--color-border))] p-6 text-[rgb(var(--color-text))]/75">
-              {isFA ? "به‌زودی نوشته‌ها منتشر می‌شود." : "Posts coming soon."}
-            </div>
-          )}
-
-          <div className="mt-6">
-            <Link href={`/${locale}/blog`} className="underline underline-offset-4">
-              {isFA ? "همه‌ی نوشته‌ها" : "See all posts"}
-            </Link>
-          </div>
-        </div>
-      </Section>
-
-      {/* CTA پایانی */}
-      <section className="relative overflow-hidden bg-hero-gradient footer-glow">
-        <div className={`${layout.container} py-12`}>
-          <div className="max-w-2xl">
-            <h3 className="font-serif text-2xl text-white title-softshadow">
-              {isFA ? "آماده‌ای شروع کنی؟" : "Ready to begin?"}
-            </h3>
-            <p className="mt-2 text-white/85">
-              {isFA
-                ? "یک گفت‌وگوی کوتاه رایگان رزرو کن تا ببینیم چه مسیری مناسب توست."
-                : "Book a free discovery call and find your best next step."}
-            </p>
-            <div className="mt-4">
-              <Link href={site.booking.cal.free} className={button.shine}>
-                {isFA ? "رزرو جلسه رایگان" : "Book a Free Call"}
-              </Link>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </main>

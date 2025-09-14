@@ -1,0 +1,58 @@
+{
+  "slug": "ali-6472",
+  "localeDefault": "en",
+  "name": "Ali Rezaei",
+  "title": "Digital Marketer",
+  "name_i18n": {
+    "en": "Ali Rezaei",
+    "fa": "علی رضایی"
+  },
+  "title_i18n": {
+    "en": "Digital Marketer",
+    "fa": "متخصص بازاریابی دیجیتال"
+  },
+  "avatarUrl": "/clients/ali-6472.jpg",
+  "bio": {
+    "en": "Helping businesses grow online through SEO and paid campaigns.",
+    "fa": "کمک به رشد کسب‌وکارها از طریق سئو و کمپین‌های تبلیغاتی."
+  },
+  "links": [
+    {
+      "type": "website",
+      "url": "https://example.com"
+    },
+    {
+      "type": "linkedin",
+      "url": "https://linkedin.com/in/ali"
+    },
+    {
+      "type": "email",
+      "url": "mailto:ali@example.com"
+    },
+    {
+      "type": "phone",
+      "url": "tel:+14161234567"
+    },
+    {
+      "type": "phone",
+      "url": "tel:000345435"
+    },
+    {
+      "type": "instagram",
+      "url": "https://www.instagram.com/damienhirst/related_profiles/?hl=en"
+    }
+  ],
+  "contact": {
+    "email": "ali@example.com",
+    "phone": "+1-416-123-4567",
+    "whatsapp": "+1-416-123-4567",
+    "address": "Toronto, Canada"
+  },
+  "cta": {
+    "url": "/api/u/ali-6472/vcard",
+    "label_en": "Add to Contacts",
+    "label_fa": "افزودن به مخاطبین"
+  },
+  "indexable": false,
+  "updatedAt": "2025-09-14T06:25:58.736Z"
+}

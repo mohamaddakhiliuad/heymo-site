@@ -1,38 +1,28 @@
 ---
 title: "About"
-description: "Hi, I’m Fatemeh — Mindfulness & MBSR Coach."
-cover: "/images/about/fatemeh-portrait.jpg"
-portrait: "/images/about/fatemeh-portrait.jpg"
+
+description: ""
+cover: "/images/about/Mohammad-portrait.jpg"
+portrait: "/images/about/Mohammad-portrait.jpg"
 keywords: ["Mindfulness","MBSR","Stress Reduction","Coaching"]
 ---
 
-I am a **mindfulness life coach** with more than **5 years of experience** helping individuals cultivate self-awareness, reduce stress, and create meaningful changes in their lives.  
-My approach integrates insights from **neuroscience** with practical coaching strategies, all rooted in the deep and endless ocean of mindfulness.
+# About Me
 
-I support my clients in becoming aware of their own strengths and capabilities, so they can join the **dance of life** with more resilience, improve their relationships, and live with simplicity and balance.  
+Hi, I’m **Mohammad Dakhilitarghi** — a digital strategist, web developer, and marketing consultant.
 
-> And if the world does not dance with me, I will dance with the world ✨
+Over the past 15+ years, I’ve worked across **software development, digital marketing, and business consulting**. My focus has always been on helping people and businesses simplify growth in a world that often feels complex and overwhelming.  
 
-<!-- split -->
+I’m not the loudest voice in the room, but I believe in **clarity, empathy, and consistency**. My approach is simple: listen carefully, understand real needs, and then build solutions that actually work.  
 
-## Education
+### What I do
+- **Smart websites & Shopify solutions** — clean, modern, and growth-focused.  
+- **Headless & custom web systems** — from React/Next.js to databases and APIs.  
+- **SEO & digital marketing strategies** — actionable, data-driven, and long-term.  
+- **NFC smart business cards** — bridging offline and online presence with a tap.  
 
-- **Educational Assistance – Diploma**, CDI College, Toronto, ON (2025)  
-- **M.A. in Clinical Psychology** – Kharazmi University, Tehran, Iran  
-- **B.A. in Family Studies** – Islamic Azad University, Mashhad, Iran  
-- **B.A. in Law** – Islamic Azad University, Mashhad, Iran  
+### What I believe
+Technology should **serve people**, not overwhelm them. Every project I take on is about **making things easier**, **building trust**, and **leaving room for growth**.
 
----
+If my work can help a business stand a little stronger, or make life a little simpler for someone, then I consider that a success.  
 
-## Certifications
-
-- **Certified Life Coach** – Coaching Ways  
-- **Mindfulness & MBSR Instructor**  
-- **Life Skills Coaching**  
-
----
-
-## Practical Experience
-
-- Facilitated dozens of **group coaching programs** in mindfulness-based stress reduction (MBSR)  
-- Conducted hundreds of hours of **one-on-one mindfulness coaching**

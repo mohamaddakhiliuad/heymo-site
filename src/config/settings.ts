@@ -21,12 +21,12 @@ export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN!
 
 // src/config/settings.ts
 export const settings = {
-  baseUrl: "https://mindfulnesslifecoach.ca/", // به دامین واقعی‌ت تغییر بده
+  baseUrl: "https://heymo.ca/", // به دامین واقعی‌ت تغییر بده
   locales: ["en", "fa"] as const,
   defaultLocale: "en" as const,
   rtlLocales: new Set(["fa"]),
   brand: {
-    name: "Fatemeh Mindfulness",
+    name: "heymo",
     theme: "Sage Calm",
   },
 };

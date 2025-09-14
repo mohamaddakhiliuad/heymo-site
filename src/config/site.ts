@@ -8,44 +8,23 @@ export const DEFAULT_LOCALE: Locale = "en";
 export type NavItem = { label: string; href: string; external?: boolean };
 export type CTA = { label: string; href: string; external?: boolean };
 
-// src/config/site.ts
 import { settings } from "./settings";
 
 export const site = {
-  name: "Fatemeh Mindfulness",
-  description: "Mindfulness & MBSR coaching — EN/FA",
+  name: "heyMo — Shopify, Headless Web & NFC Profiles",
+  description: "Clean tech + clear strategy. Shopify storefronts, NFC smart profiles, content & SEO.",
   social: {
-    instagram: "https://instagram.com/…",
-    linkedin: "https://linkedin.com/in/…",
-    youtube: "https://youtube.com/@…",
-  },
-  social: {
-    instagram: "https://instagram.com/…",
-    linkedin: "https://linkedin.com/in/…",
-    whatsapp: "https://wa.me/1XXXXXXXXXX", // اختیاری
+    instagram: "https://instagram.com/changeclubmag",
+    linkedin: "https://linkedin.com/in/mohamad-dakhili",
+    youtube: "https://youtube.com/changeclubmag",
+    whatsapp: "https://wa.me/+16474820073",
   },
   contact: {
-    emailTo: "inbox@yourdomain.com",   // گیرنده
-    emailCc: "",                       // اختیاری
-    webhook: "",                       // اگر به‌جای ایمیل، به Notion/Zap/Webhook بزنی
+    emailTo: "mohamaddakhiliuad@gmail.com",
+    emailCc: "",
+    webhook: "",
   },
   booking: {
-    discovery: {
-      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-    },
-    session: {
-      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-    },
-    mbsr: {
-      fa: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-      en: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
-    },
-  },
-
-  booking: {
-    // مصرف مستقیم در /[locale]/booking
     cal: {
       free: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
       coaching: "https://cal.com/fatemeh-taghizadeh-khorasani-2lj4yj/15min?overlayCalendar=true",
@@ -63,9 +42,9 @@ export const site = {
     header: [
       { key: "home", href: "/" },
       { key: "services", href: "/services" },
-      { key: "programs", href: "/programs" },
+      { key: "projects", href: "/projects" },
       { key: "blog", href: "/blog" },
-      { key: "booking", href: "/booking" },
+      { key: "contact", href: "/contact" },
     ],
     footer: [
       { key: "privacy", href: "/privacy" },
@@ -78,8 +57,8 @@ export const site = {
 export interface BrandConfig {
   name: string;
   tagline?: string;
-  logo?: string;           // e.g. /logo.svg
-  domain?: string;         // canonical
+  logo?: string;
+  domain?: string;
   localeDefault: Locale;
   locales: Locale[];
   themeVariant?: "sage" | "warm" | "lavender";
@@ -89,25 +68,26 @@ export interface HeaderConfig {
   nav: Record<Locale, NavItem[]>;
   ctas?: Record<Locale, { primary?: CTA; secondary?: CTA }>;
   sticky?: boolean;
-  translucent?: boolean;   // blur + surface bg
+  translucent?: boolean;
   showLanguageSwitch?: boolean;
+  variant?: "surface" | "accent";
 }
 
 export interface FooterColumn { title: string; links: NavItem[] }
 
 export interface FooterConfig {
-  variant?: "accent" | "surface"; // accent: brand bg, surface: light bg
+  variant?: "accent" | "surface";
   columns: Record<Locale, FooterColumn[]>;
-  socials?: NavItem[];            // Instagram/LinkedIn/YouTube/Pinterest
+  socials?: NavItem[];
   legal?: Record<Locale, NavItem[]>;
   newsletter?: { enable: boolean; formAction?: string };
   copy: Record<Locale, string>;
 }
 
 export interface BookingConfig {
-  discovery?: Record<Locale, string>; // Calendly/Cal.com links
-  session?: Record<Locale, string>;   // paid 1:1 link (optional)
-  mbsr?: Record<Locale, string>;      // Stripe/Checkout link (optional)
+  discovery?: Record<Locale, string>;
+  session?: Record<Locale, string>;
+  mbsr?: Record<Locale, string>;
 }
 
 export interface SEOConfig {
@@ -124,15 +104,15 @@ export interface SiteConfig {
   seo?: SEOConfig;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   DEFAULT CONFIG — Fatemeh Mindfulness (FA/EN)
-   ────────────────────────────────────────────────────────────── */
+/* ────────────────────────────────────────────────
+   DEFAULT CONFIG — heyMo (FA/EN)
+   ──────────────────────────────────────────────── */
 const siteConfig = {
   brand: {
-    name: "Fatemeh • Mindfulness",
-    tagline: "Evidence-informed mindfulness & MBSR",
+    name: "heyMo",
+    tagline: "Smart websites, Shopify & digital growth strategies",
     logo: "/logo.svg",
-    domain: "fatemehmindful.com",
+    domain: "heymo.ca",
     localeDefault: DEFAULT_LOCALE,
     locales: SITE_LOCALES,
     themeVariant: "sage",
@@ -140,68 +120,61 @@ const siteConfig = {
 
   header: {
     variant: "accent",
-    translucent:false,
+    translucent: false,
     sticky: true,
     showLanguageSwitch: true,
     nav: {
       fa: [
-      
-        { label: "دوره‌ها", href: "/fa/programs" },
+        { label: "پروژه‌ها", href: "/fa/projects" },
+        { label: "کارت هوشمند NFC", href: "/fa/nfc" },
         { label: "درباره من", href: "/fa/about" },
-        { label: "بلاگ",    href: "/fa/blog" },
+        { label: "ارتباط با ما", href: "/fa/contact" },
       ],
       en: [
-       
-        { label: "Programs", href: "/en/programs" },
-        { label: "About",    href: "/en/about" },
-        { label: "Blog",     href: "/en/blog" },
+        { label: "Projects", href: "/en/projects" },
+        { label: "NFC Business Card", href: "/en/nfc" },
+        { label: "About", href: "/en/about" },
+        { label: "Contact", href: "/en/contact" },
       ],
     },
     ctas: {
-      fa: {
-        primary:   { label: "رزرو جلسه", href: "/fa/booking" },
-        secondary: { label: "EN", href: "/en" },
-      },
-      en: {
-        primary:   { label: "Book a Call", href: "/en/booking" },
-        secondary: { label: "FA", href: "/fa" },
-      },
+      fa: { secondary: { label: "EN", href: "/en" } },
+      en: { secondary: { label: "FA", href: "/fa" } },
     },
   },
 
   footer: {
-    variant: "accent", // یا "accent" اگر فوتر تیره با رنگ برند می‌خوای
+    variant: "accent",
     columns: {
       fa: [
         {
-          title: "سریع",
+          title: "دسترسی سریع",
           links: [
-            { label: "خدمات",  href: "/fa/services" },
-            { label: "دوره‌ها", href: "/fa/programs" },
-            { label: "رزرو",    href: "/fa/booking" },
+            { label: "خدمات", href: "/fa/services" },
+            { label: "پروژه‌ها", href: "/fa/projects" },
+            { label: "رزرو", href: "/fa/booking" },
           ],
         },
         {
           title: "یادگیری",
           links: [
-            { label: "بلاگ",    href: "/fa/blog" },
-            { label: "منابع",   href: "/fa/resources" },
+            { label: "بلاگ", href: "/fa/blog" },
+            { label: "منابع", href: "/fa/resources" },
           ],
         },
       ],
       en: [
         {
-          title: "Quick",
+          title: "Quick Links",
           links: [
-       
-            { label: "Programs", href: "/en/programs" },
-            { label: "Booking",  href: "/en/booking" },
+            { label: "Projects", href: "/en/projects" },
+            { label: "Contact", href: "/en/contact" },
           ],
         },
         {
           title: "Learn",
           links: [
-            { label: "Blog",      href: "/en/blog" },
+            { label: "Blog", href: "/en/blog" },
             { label: "Resources", href: "/en/resources" },
           ],
         },
@@ -209,33 +182,33 @@ const siteConfig = {
     },
     socials: [
       { label: "Instagram", href: "https://instagram.com/changeclubmag", external: true },
-      { label: "LinkedIn",  href: "https://linkedin.com/in/fatemeh-taghizadehkhorassani", external: true },
-      { label: "YouTube",   href: "https://youtube.com/changeclubmag",  external: true },
-      { label: "Pinterest", href: "https://t.me/mindfulnesslifecoach", external: true },
+      { label: "LinkedIn", href: "https://linkedin.com/in/mohamad-dakhili", external: true },
+      { label: "YouTube", href: "https://youtube.com/changeclubmag", external: true },
+      { label: "WhatsApp", href: "https://wa.me/+16474820073", external: true },
     ],
     legal: {
       fa: [
-        { label: "حریم خصوصی",  href: "/fa/privacy" },
-        { label: "شرایط",        href: "/fa/terms" },
-        { label: "سلب مسئولیت",  href: "/fa/disclaimer" },
+        { label: "حریم خصوصی", href: "/fa/privacy" },
+        { label: "شرایط", href: "/fa/terms" },
+        { label: "سلب مسئولیت", href: "/fa/disclaimer" },
       ],
       en: [
-        { label: "Privacy",    href: "/en/privacy" },
-        { label: "Terms",      href: "/en/terms" },
+        { label: "Privacy", href: "/en/privacy" },
+        { label: "Terms", href: "/en/terms" },
         { label: "Disclaimer", href: "/en/disclaimer" },
       ],
     },
     copy: {
-      fa: `© ${new Date().getFullYear()} فاطمه — Mindfulness Coaching`,
-      en: `© ${new Date().getFullYear()} Fatemeh — Mindfulness Coaching`,
+      fa: `© ${new Date().getFullYear()} heymo.ca`,
+      en: `© ${new Date().getFullYear()} heymo.ca`,
     },
     newsletter: { enable: false },
   },
 
   seo: {
-    title: "Fatemeh — Mindfulness Coaching",
+    title: "heyMo — Digital Growth & Smart Web Solutions",
     description:
-      "Reduce stress with evidence-informed mindfulness. 1:1 coaching and 8-week MBSR in Toronto & online.",
+      "Smart websites, Shopify strategies, and NFC business cards. Helping businesses grow with clarity and modern tools.",
     ogImage: "/og-cover.png",
   },
 } satisfies SiteConfig;

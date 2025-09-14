@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "rumilander",
+    "title": "Rumilander.art — گالری هنری هدلس",
+    "summary": "Next.js + Shopify هدلس؛ گالری سریع با UI اختصاصی و سئوی حرفه‌ای.",
+    "highlights": ["Next.js 15", "Headless Shopify", "UI اختصاصی", "SEO"],
+    "image": "/projects/rumilander.jpg",
+    "url": "https://rumilander.art"
+  },
+  {
+    "slug": "change-club",
+    "title": "Change Club — سیستم محتوا و رشد",
+    "summary": "رشد ۱۰۰هزاری با سیستم محتوا، داشبورد تحلیل و بهینه‌سازی قیف.",
+    "highlights": ["سیستم محتوا", "آنالیتیکس", "قیف فروش", "جامعه"],
+    "image": "/projects/changeclub.jpg",
+    "url": "https://www.instagram.com/changeclubmag/"
+  },
+  {
+    "slug": "trial-match",
+    "title": "Trial Match — فرم‌های هوشمند و تطبیق AI",
+    "summary": "موتور فرم داینامیک + مدل پایگاه‌داده انعطاف‌پذیر، آماده برای تطبیق هوشمند.",
+    "highlights": ["فرم داینامیک", "DB Design", "آماده AI", "عملیاتی"],
+    "image": "/projects/trialmatch.jpg",
+    "url": "#"
+  }
+]

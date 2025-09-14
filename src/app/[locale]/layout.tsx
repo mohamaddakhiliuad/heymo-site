@@ -17,6 +17,7 @@ import Footer from "@/components/shared/Footer";
 
 import I18nProvider from "@/i18n/I18nProvider";
 import { getDictionary } from "@/i18n";
+import SiteChrome from "@/components/layout/SiteChrome"; 
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -48,7 +49,6 @@ export async function generateMetadata(
       : undefined,
   };
 }
-
 export default async function LocaleLayout(
   props: {
     children: React.ReactNode;
@@ -79,10 +79,21 @@ export default async function LocaleLayout(
           geistMono.variable,
           "antialiased",
           "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text))]",
-          locale === "fa" ? "font-fa" : "", // 👈 اضافه شد برای فونت فارسی
+          locale === "fa" ? "font-fa" : "",
         ].join(" ")}
       >
         <I18nProvider value={{ locale, dict }}>
+          {/* هدر/فوتر فقط وقتی می‌آیند که سگمنت اول بعد از locale ≠ 'u' باشد */}
+          <SiteChrome>
+            <Header />
+          </SiteChrome>
+
+          <main>{props.children}</main>
+
+          <SiteChrome>
+            <Footer />
+          </SiteChrome>
+
           <Toaster
             position="top-right"
             toastOptions={{
@@ -94,9 +105,6 @@ export default async function LocaleLayout(
               },
             }}
           />
-          <Header />
-          <main>{props.children}</main>
-          <Footer />
         </I18nProvider>
 
         <Analytics />

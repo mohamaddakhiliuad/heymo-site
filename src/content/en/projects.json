@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "rumilander",
+    "title": "Rumilander.art — Headless Art Gallery",
+    "summary": "Next.js + Shopify (headless). Ultra-fast gallery, custom UI, SEO-ready checkout flow.",
+    "highlights": ["Next.js 15", "Headless Shopify", "Custom UI", "SEO"],
+    "image": "/projects/rumilander.jpg",
+    "url": "https://rumilander.art"
+  },
+  {
+    "slug": "change-club",
+    "title": "Change Club — Content & Growth",
+    "summary": "100K+ audience growth with content systems, analytics dashboards, and funnel optimization.",
+    "highlights": ["Content System", "Analytics", "Funnel", "Community"],
+    "image": "/projects/changeclub.jpg",
+    "url": "https://www.instagram.com/changeclubmag/"
+  },
+  {
+    "slug": "trial-match",
+    "title": "Trial Match — Smart Forms & AI Matching",
+    "summary": "Dynamic form engine + flexible DB model ready for AI-assisted trial candidate matching.",
+    "highlights": ["Dynamic Forms", "DB Design", "AI-ready", "Ops"],
+    "image": "/projects/trialmatch.jpg",
+    "url": "#"
+  }
+]

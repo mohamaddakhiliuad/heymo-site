@@ -8,6 +8,25 @@ export default {
     contact: "Contact",
 
   },
+  profile: {
+    title: "Profile",
+    links: "Links",
+    contact: "Contact",
+    email: "Email",
+    phone: "Phone",
+    whatsapp: "WhatsApp",
+    website: "Website",
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+    youtube: "Youtube",
+    telegram:"Telegram",
+    github:"Github",
+    address: "Address",
+    cta: "Get in touch",
+    viewIn: "View in",
+    notFound: "Profile not found.",
+    private: "This profile is private.",
+  },
   blog:   { 
     metaTitle: "Blog – Hear from Your Monful Coach",
     metaDescription: "Explore stories, interviews, and philosophies behind the artworks of Master Alijanpour.",
@@ -82,5 +101,6 @@ export default {
       email: "Email",
       booking: "Book a Discovery Call",
     },
+    
   },
 };
