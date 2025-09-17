@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { layout, card, button, cn } from "@/styles/formStyles";
 import type { Metadata } from "next";
+import Hero from "@/components/Hero";
 
 type Params = { params: { locale: "en" | "fa" } };
 
@@ -23,20 +24,7 @@ export default async function HomePage({ params }: Params) {
   return (
     <main dir={rtl ? "rtl" : "ltr"}>
       {/* Hero */}
-     <section className={cn(layout.container, "rounded-2xl mt-6 px-6 py-16 md:py-24 bg-[rgb(var(--color-surface-muted))]")}>
-  <div className="text-[rgb(var(--color-accent))]">
-          <h1 className="text-3xl md:text-5xl font-serif title-softshadow leading-tight">
-            Simplifying Growth with Clean Tech & Clear Strategy
-          </h1>
-          <p className="mt-4 text-cyan-500 text-lg">
-            Shopify & Headless storefronts, NFC smart profiles, and data-driven marketing — built fast, with focus.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={`/${locale}/contact`} className={button.primary}>Get Started</Link>
-            <Link href={`/${locale}/projects`} className={button.outline}>{rtl ? "مشاهده پروژه‌ها" : "View Projects"}</Link>
-          </div>
-        </div>
-      </section>
+    <Hero locale={params.locale} ></Hero>
 
       {/* Value props */}
       <section className={cn(layout.container, "py-12 md:py-16")}>
