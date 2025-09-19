@@ -2,6 +2,9 @@
 
 A **Next.js 15 multilingual website** built with **App Router**, **Tailwind CSS**, and **Markdown/JSON content**.  
 This project demonstrates how to structure and deliver a **content-driven dynamic website** that supports multiple languages (EN/FA), centralized design tokens, and SEO best practices.
+
+---
+## 🔑 Live Demo
 [![Live Demo](https://img.shields.io/badge/Demo-Heymo.ca-blue?style=for-the-badge&logo=vercel)](https://heymo.ca)
 
 
