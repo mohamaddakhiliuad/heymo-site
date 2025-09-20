@@ -3,8 +3,11 @@ import Image from "next/image";
 import { layout, card, button, cn } from "@/styles/formStyles";
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+import HeroPremium from "@/components/Hero/HeroPremium";
+import { getDictionary } from "@/i18n";
 
 type Params = { params: { locale: "en" | "fa" } };
+
 
 export const metadata: Metadata = {
   title: "heymo — Shopify, Headless Web & NFC Profiles",
@@ -20,13 +23,15 @@ export default async function HomePage({ params }: Params) {
   const { locale } = params;
   const rtl = locale === "fa";
   const projects = await getProjects(locale);
-
+  const dict = await getDictionary(params.locale);
   return (
     <main dir={rtl ? "rtl" : "ltr"}>
       {/* Hero */}
+       <HeroPremium locale={params.locale}  t={dict.hero}  media="/media/hero-mock.png" /* videoId="YOUTUBE_ID" */ />
     <Hero locale={params.locale} ></Hero>
 
-      {/* Value props */}
+
+      {/* Value props */} 
       <section className={cn(layout.container, "py-12 md:py-16")}>
         <div className="grid md:grid-cols-3 gap-5">
           {[

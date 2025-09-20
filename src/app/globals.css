@@ -172,3 +172,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow, .animate-float-slower { animation: none !important; }
 }
+/* globals.css */
+.bg-hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--hero-from)) 0%,
+    rgb(var(--hero-mid)) 50%,
+    rgb(var(--hero-to)) 100%
+  );
+}
